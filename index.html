@@ -1239,6 +1239,15 @@ body{background-attachment:fixed;}
   .invite-hero p{font-size:.8rem;}
 }
 
+
+/* ===== v39 ===== */
+.ck-x{-webkit-text-fill-color:#e2e8f0;color:#e2e8f0;opacity:.85;font-size:1.25rem;font-weight:800;
+  padding:0 8px;vertical-align:middle;text-shadow:0 0 18px rgba(255,255,255,.25);}
+#sync-status{display:none!important;}
+.badge-main{cursor:pointer;user-select:none;transition:transform .12s,filter .15s;}
+.badge-main:active{transform:scale(.94);filter:brightness(1.15);}
+.nav-gear{display:none!important;}
+
 </style>
 </head>
 <body>
@@ -1282,7 +1291,7 @@ body{background-attachment:fixed;}
 
 <header class="dashboard-header">
     <div class="brand-zone">
-        <span class="badge-main">AI SUMMIT 2026</span>
+        <span class="badge-main" id="admin-entry" title="관리자 모드" onclick="requestAdmin()">AI SUMMIT 2026</span>
         <div>
             <div class="title-main">HD현대 건설기계부문 CL 활동 <span class="admin-badge" id="admin-badge">관리자 모드</span></div>
             <div class="title-sub">'26.08.19-20 / W. CL 95명 전원 <span id="sync-status" class="sync-chip off">⚪ 로컬 모드</span></div>
@@ -1296,7 +1305,7 @@ body{background-attachment:fixed;}
         <button class="nav-tab-btn" data-tab="tab-feed" onclick="switchTab('tab-feed',this)">💬 현장 실시간 피드</button>
         <button class="btn-normal-mode" id="btn-normal-mode" onclick="exitAdmin()">🚪 일반모드로</button>
         <button class="user-chip" id="user-chip" onclick="chipClick()">👤 <span id="user-chip-name"></span></button>
-        <button class="nav-gear" title="관리자 설정" onclick="requestAdmin()">⚙️</button>
+        
     </div>
 </header>
 
@@ -1362,7 +1371,7 @@ body{background-attachment:fixed;}
         <div class="timeline-top-bar">
             <div class="timeline-title-area">
                 <h2>🤖 AI Summit Program</h2>
-                <p>관심 있는 주제에 ❤️를 클릭해주세요, CL이 평소 궁금한 AI 주제를 공유해주세요</p>
+                <p>CL이 평소 관심 있는 주제 모두 ❤️를 클릭해주세요, <b style="color:#ec4899;">[❤️ 요약]</b> 에서 전체 TOP5를 볼 수 있어요</p>
             </div>
             <div class="date-switcher">
                 <button class="date-btn active" onclick="switchDate(this,1)"><span class="d-no">1일차</span><span class="d-date">8월 19일 (수)</span></button>
@@ -1370,8 +1379,8 @@ body{background-attachment:fixed;}
             </div>
         </div>
         <div class="subtab-bar">
-            <button class="subtab-btn active" onclick="switchSub('conference',this)">🎤 Conference</button>
-            <button class="subtab-btn" onclick="switchSub('expo',this)">🏢 Expo</button>
+            <button class="subtab-btn active" onclick="switchSub('conference',this)">Conference</button>
+            <button class="subtab-btn" onclick="switchSub('expo',this)">Expo</button>
         </div>
         <div id="sub-conference" class="subtab-content active">
             <div class="day-content active" data-day="1">
