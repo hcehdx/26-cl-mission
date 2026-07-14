@@ -1248,6 +1248,14 @@ body{background-attachment:fixed;}
 .badge-main:active{transform:scale(.94);filter:brightness(1.15);}
 .nav-gear{display:none!important;}
 
+
+/* ===== v40 : 그룹장 권한 토글 ===== */
+.lead-chk{width:34px;height:28px;border-radius:8px;border:1px solid #475569;background:#1e293b;color:#64748b;
+  font-weight:900;font-size:.85rem;cursor:pointer;transition:.15s;}
+.lead-chk.on{background:rgba(245,158,11,.2);border-color:var(--pri);color:var(--pri);
+  box-shadow:0 0 0 2px rgba(245,158,11,.12);}
+.lead-chk:active{transform:scale(.92);}
+
 </style>
 </head>
 <body>
@@ -1666,7 +1674,7 @@ body{background-attachment:fixed;}
 <!-- STEP6 타그룹 CL 인증 모달 -->
 <div class="modal-overlay" id="ms-other-modal"><div class="modal-box">
     <h3>🤝 STEP 6 · 우리팀이 아닌 CL과 인증샷</h3>
-    <div class="modal-sub">함께한 다른 그룹 CL을 선택하세요. (본부가 달라도 여러 명 선택 가능)</div>
+    <div class="modal-sub">함께한 다른 그룹 CL을 선택하세요. (여러 명 가능)<br>👉 <b style="color:var(--pri)">한 명만 등록하면 선택된 CL 전원이 STEP 6 완료</b> 처리됩니다.</div>
     <div class="picker-row" style="display:flex;gap:8px;margin-bottom:8px;">
         <select id="mo-hq" onchange="moHqChange()" style="flex:1;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:9px;font-family:inherit;"><option value="">본부</option></select>
         <select id="mo-group" onchange="moGroupChange()" style="flex:1;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:9px;font-family:inherit;"><option value="">그룹</option></select>
@@ -1674,8 +1682,8 @@ body{background-attachment:fixed;}
     <div class="member-check-list" id="mo-members"><div class="live-empty">본부·그룹을 선택하면 명단이 나옵니다.</div></div>
     <div style="font-size:.78rem;color:var(--pri);font-weight:700;margin-bottom:8px;" id="mo-selected-cnt">함께한 CL: 0명</div>
     <div class="mo-chips" id="mo-selected-list"></div>
-    <label style="display:block;font-size:.8rem;color:var(--mut);margin-bottom:5px;font-weight:600;">한 줄 코멘트</label>
-    <textarea id="ms-other-text" style="width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:10px;font-family:inherit;" placeholder="어떤 CL과 함께했나요?"></textarea>
+    <label style="display:block;font-size:.8rem;color:var(--mut);margin-bottom:5px;font-weight:600;">소감 한마디</label>
+    <textarea id="ms-other-text" style="width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:10px;font-family:inherit;" placeholder="소감 한마디를 남겨주세요!"></textarea>
     <label style="display:block;font-size:.8rem;color:var(--mut);margin:8px 0 5px;font-weight:600;">인증샷 <span style="color:#ef4444">(필수)</span></label>
     <input type="file" id="ms-other-image" accept="image/*" style="width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:10px;font-family:inherit;">
     <img id="ms-other-preview" class="stamp-modal-preview">
@@ -1770,7 +1778,7 @@ body{background-attachment:fixed;}
         </h3>
         <div class="roster-scroll"><table class="roster-table">
             <thead><tr>
-                <th onclick="sortRoster('group')">그룹 ⇅</th><th onclick="sortRoster('name')">이름 ⇅</th><th onclick="sortRoster('pos')">직위 ⇅</th>
+                <th onclick="sortRoster('group')">그룹 ⇅</th><th onclick="sortRoster('name')">이름 ⇅</th><th onclick="sortRoster('pos')">직위 ⇅</th><th onclick="sortRoster('lead')">그룹장 ⇅</th>
                 <th onclick="sortRoster('apply')">신청 ⇅</th><th onclick="sortRoster('att')">출석 ⇅</th><th onclick="sortRoster('mission')">미션 ⇅</th><th onclick="sortRoster('feed')">피드 ⇅</th><th>기타 사유</th><th>메모</th>
             </tr></thead>
             <tbody id="roster-body"></tbody>
@@ -1873,7 +1881,7 @@ const orgData = {
 };
 
 const ADMIN_PW='0000';
-const ST={att:'clV8_att',heart:'clV8_heart',feed:'clV8_feed',apply:'clV8_apply',set:'clV8_set',memo:'clV8_memo',mission:'clV8_mission',login:'clV8_login'};
+const ST={att:'clV8_att',heart:'clV8_heart',feed:'clV8_feed',apply:'clV8_apply',set:'clV8_set',memo:'clV8_memo',mission:'clV8_mission',login:'clV8_login',leader:'clV8_leader'};
 /* 실시간 연동 시 서버가 기준 → 빈 값으로 시작해 서버 데이터로 채움 */
 let attData=remoteOn?{}:JSON.parse(localStorage.getItem(ST.att)||'{}');
 let applyData=remoteOn?{}:JSON.parse(localStorage.getItem(ST.apply)||'{}');
@@ -1884,6 +1892,7 @@ const defaultSet={'tab-invite':true,'tab-agenda':true,'tab-apply':false,'tab-att
 settings=Object.assign({},defaultSet,settings);
 let feedDay='1',apDay='1',sumDay='1',currentModalGroupNo=null,isAdmin=false;
 let rosterSort={key:'group',asc:true};
+let leaderData=JSON.parse(localStorage.getItem(ST.leader)||'{}');   /* 그룹장 권한 오버라이드 */
 let currentUser=JSON.parse(localStorage.getItem(ST.login)||'null');
 
 const FEED_PAGE=10;
@@ -1894,10 +1903,25 @@ const MISSION_STEPS=[
     {step:3,key:'s3',icon:'🌅',title:'Session 공유 (오전)',desc:'오전 세션 중 가장 인상 깊은 점'},
     {step:4,key:'s4',icon:'🌆',title:'Session 공유 (오후)',desc:'오후 세션 중 가장 인상 깊은 점'},
     {step:5,key:'s5',icon:'📸',title:'우리 그룹 단체사진',desc:'그룹장이 올리면 팀원 전체 완료'},
-    {step:6,key:'s6',icon:'🤝',title:'타 그룹 CL과 인증샷',desc:'우리팀이 아닌 CL과 함께!'},
+    {step:6,key:'s6',icon:'🤝',title:'타 그룹 CL과 인증샷',desc:'우리팀이 아닌 CL과 함께! 한 명만 올리면 함께 찍은 CL 전원 완료'},
 ];
 
 function memberKey(no,name){return no+'_'+name;}
+function isLeader(no,name){
+    const k=memberKey(no,name);
+    if(leaderData.hasOwnProperty(k))return !!leaderData[k];
+    const g=findGroup(no);if(!g)return false;
+    const m=g.members.find(x=>x.n===name);
+    return !!(m&&m.l);
+}
+function toggleLeader(no,name){
+    if(!isAdmin){alert('관리자만 변경할 수 있습니다.');return;}
+    const k=memberKey(no,name);
+    const cur=isLeader(no,name);
+    leaderData[k]=!cur;
+    persistLocal(ST.leader,leaderData);dbSet('leader/'+k,!cur);
+    renderRoster();renderStampBoard();
+}
 function findGroup(no){for(const g in orgData){const f=orgData[g].groups.find(x=>x.no===no);if(f)return f;}return null;}
 function findGridByGroupNo(no){for(const g in orgData){if(orgData[g].groups.find(x=>x.no===no))return g;}return null;}
 function escapeHtml(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
@@ -1975,6 +1999,28 @@ function saveUserStamp(stepKey,data){
     missionData[mk]=rec;persist(ST.mission,missionData);
     dbSet('mission/'+mk,rec);
 }
+function feedExists(id){
+    if(!id)return false;
+    if(remoteOn)return !!feedsCache[id];
+    return loadFeeds().some(f=>f.id===id);
+}
+function updateFeed(id,patch){
+    if(remoteOn){for(const k in patch)dbSet(`feeds/${id}/${k}`,patch[k]);return;}
+    const f=loadFeeds(),t=f.find(x=>x.id===id);if(!t)return;
+    Object.assign(t,patch);saveFeeds(f);renderFeeds();
+}
+function showPrevImg(previewId,src){
+    const p=document.getElementById(previewId);if(!p)return;
+    if(src){p.src=src;p.style.display='block';}else{p.removeAttribute('src');p.style.display='none';}
+}
+function saveStampFor(no,name,stepKey,data){
+    const mk=missionKey(no,name);
+    const rec=Object.assign({},missionData[mk]||{});
+    if(rec[stepKey]&&rec[stepKey].done)return;      /* 이미 완료면 유지 */
+    rec[stepKey]=Object.assign({done:true,time:nowTime()},data);
+    missionData[mk]=rec;persist(ST.mission,missionData);
+    dbSet('mission/'+mk,rec);
+}
 function persist(key,obj){try{localStorage.setItem(key,JSON.stringify(obj));}catch(e){if(!remoteOn)alert('⚠️ 이 기기의 저장 공간이 가득 찼습니다.\n(사진이 너무 많거나 큼)');}}
 function persistLocal(key,obj){try{localStorage.setItem(key,JSON.stringify(obj));}catch(e){}}
 
@@ -1999,6 +2045,8 @@ function initRemote(){
     rdb.ref('att').on('value',s=>{attData=s.val()||{};persistLocal(ST.att,attData);renderAttOrg();});
     /* 일정 신청 */
     rdb.ref('apply').on('value',s=>{applyData=s.val()||{};persistLocal(ST.apply,applyData);renderApplyDashboard();});
+    /* 그룹장 권한 */
+    rdb.ref('leader').on('value',s=>{leaderData=s.val()||{};persistLocal(ST.leader,leaderData);renderRoster();if(currentUser)renderStampBoard();});
     /* 관리자 메모 */
     rdb.ref('memo').on('value',s=>{memoData=s.val()||{};});
     /* 하트 */
@@ -2048,8 +2096,8 @@ function renderStampBoard(){
         locked.innerHTML='🧑‍💼 HRD팀 계정입니다. 미션 스탬프는 CL 전용이며, <b style="color:var(--pri)">현장 실시간 피드</b>에서 공지·소통을 진행해 주세요.';
         updateUserChip();return;}
     board.classList.add('unlocked');locked.style.display='none';active.style.display='block';
-    const g=findGroup(currentUser.no),member=g.members.find(m=>m.n===currentUser.name),isLeader=member&&member.l;
-    document.getElementById('stamp-who').innerHTML=`${g.name} · ${isLeader?'🏅 ':''}${escapeHtml(currentUser.name)}`;
+    const g=findGroup(currentUser.no);
+    document.getElementById('stamp-who').innerHTML=`${g.name} · ${isLeader(currentUser.no,currentUser.name)?'🏅 ':''}${escapeHtml(currentUser.name)}`;
     const stamps=getUserStamps();
     const list=document.getElementById('stamp-grid');list.innerHTML='';
     let doneCnt=0;MISSION_STEPS.forEach(s=>{if(stamps[s.key]&&stamps[s.key].done)doneCnt++;});
@@ -2201,6 +2249,7 @@ function openMsAtt(){
     document.querySelectorAll('#ms-att-modal .apply-day-btn').forEach(b=>b.classList.toggle('on',b.dataset.day===msAtDay));
     document.getElementById('ms-att-image').value='';
     bindPreview('ms-att-image','ms-att-preview');
+    showPrevImg('ms-att-preview',(getUserStamps().s2||{}).img||null);
     document.getElementById('ms-att-modal').classList.add('open');
 }
 function msAtSelDay(b){document.querySelectorAll('#ms-att-modal .apply-day-btn').forEach(x=>x.classList.remove('on'));b.classList.add('on');msAtDay=b.dataset.day;}
@@ -2211,16 +2260,19 @@ function saveMsAtt(){
     if(!already && imgInput.files.length===0){alert('이름표 인증샷은 필수입니다! 📸');return;}
     readImage('ms-att-image',(imgData)=>{
         const no=currentUser.no,key=memberKey(no,currentUser.name);
+        const prev2=getUserStamps().s2;                       /* 수정 전 기록 */
         const gA=attData[no]||{};gA[key]={d1:msAtDay==='d1',d2:msAtDay==='d2',etc:msAtDay==='etc'};
         attData[no]=gA;persist(ST.att,attData);dbSet('att/'+no,gA);
-        saveUserStamp('s2',{day:msAtDay});
-        if(imgData){
-            const g=findGroup(no),dayNum=msAtDay==='d1'?'1':msAtDay==='d2'?'2':'1';
-            pushFeed({author:`${g.name} · ${currentUser.name}`,day:dayNum,content:`✅ [출석 인증] ${currentUser.name} CL 현장 도착!`,img:imgData,tag:'미션 STEP2'});
-        }
+        const g=findGroup(no),dayNum=msAtDay==='d1'?'1':msAtDay==='d2'?'2':'1';
+        const finalImg=imgData||(prev2?prev2.img:null);
+        const content2=`✅ [출석 인증] ${currentUser.name} CL 현장 도착!`;
+        let feedId=prev2?prev2.feedId:null,editing=false;
+        if(prev2&&feedExists(feedId)){updateFeed(feedId,{content:content2,img:finalImg,day:dayNum,time:nowTime()});editing=true;}
+        else if(finalImg){const it2=pushFeed({author:`${g.name} · ${currentUser.name}`,day:dayNum,content:content2,img:finalImg,tag:'미션 STEP2'});feedId=it2.id;}
+        saveUserStamp('s2',{day:msAtDay,img:finalImg,feedId});
         checkMissionComplete();
         closeMsAtt();renderStampBoard();renderAttOrg();renderFeeds();
-        alert('출석 완료! 🎉 인증샷이 현장 피드에 공유되었습니다.');
+        alert(editing?'수정 완료! ✍️ 현장 피드 글도 함께 수정되었습니다.':'출석 완료! 🎉 인증샷이 현장 피드에 공유되었습니다.');
     });
 }
 
@@ -2234,6 +2286,7 @@ function openMsSess(key,title,sub){
     document.getElementById('ms-sess-text').value=prev&&prev.text?prev.text:'';
     document.getElementById('ms-sess-image').value='';
     bindPreview('ms-sess-image','ms-sess-preview');
+    showPrevImg('ms-sess-preview',prev&&prev.img?prev.img:null);
     document.getElementById('ms-sess-modal').classList.add('open');
 }
 function closeMsSess(){document.getElementById('ms-sess-modal').classList.remove('open');}
@@ -2244,10 +2297,19 @@ function saveMsSess(){
     if(!text){alert('인상 깊었던 세션 후기를 입력해주세요!');return;}
     if(!already && imgInput.files.length===0){alert('사진 공유는 필수입니다! 📸');return;}
     readImage('ms-sess-image',(imgData)=>{
-        saveUserStamp(msSessKey,{text,img:imgData});
         const g=findGroup(currentUser.no);
         const label=msSessKey==='s3'?'오전':'오후';
-        pushFeed({author:`${g.name} · ${currentUser.name}`,day:guessUserDay(),content:`⭐ [${label} Session 공유]`,note:text,img:imgData,tag:'미션 STEP'+(msSessKey==='s3'?3:4)});
+        const finalImg=imgData||(already?already.img:null);
+        const editing=already && feedExists(already.feedId);
+        if(editing){
+            updateFeed(already.feedId,{content:`⭐ [${label} Session 공유]`,note:text,img:finalImg,time:nowTime()});
+            saveUserStamp(msSessKey,{text,img:finalImg,feedId:already.feedId});
+            closeMsSess();renderStampBoard();renderFeeds();
+            alert('수정 완료! ✍️ 현장 피드 글도 함께 수정되었습니다.');
+            return;
+        }
+        const item=pushFeed({author:`${g.name} · ${currentUser.name}`,day:guessUserDay(),content:`⭐ [${label} Session 공유]`,note:text,img:finalImg,tag:'미션 STEP'+(msSessKey==='s3'?3:4)});
+        saveUserStamp(msSessKey,{text,img:finalImg,feedId:item.id});
         checkMissionComplete();
         closeMsSess();renderStampBoard();renderFeeds();
         switchTab('tab-feed');
@@ -2258,8 +2320,8 @@ function guessUserDay(){const ap=applyData[memberKey(currentUser.no,currentUser.
 
 /* ===== STEP5 단체사진 ===== */
 function openMsGroup(){
-    const g=findGroup(currentUser.no),member=g.members.find(m=>m.n===currentUser.name),isLeader=member&&member.l;
-    if(!isLeader){alert('그룹 단체사진은 그룹장(🏅)만 등록할 수 있습니다.\n그룹장이 등록하면 자동으로 완료 처리됩니다.');return;}
+    const g=findGroup(currentUser.no);
+    if(!isLeader(currentUser.no,currentUser.name)){alert('그룹 단체사진은 그룹장(🏅)만 등록할 수 있습니다.\n그룹장이 등록하면 자동으로 완료 처리됩니다.');return;}
     const box=document.getElementById('ms-group-members');box.innerHTML='';
     const prev=missionData[groupPhotoKey(currentUser.no)];
     g.members.forEach(m=>{
@@ -2271,6 +2333,7 @@ function openMsGroup(){
     document.getElementById('ms-group-text').value=prev&&prev.text?prev.text:'';
     document.getElementById('ms-group-image').value='';
     bindPreview('ms-group-image','ms-group-preview');
+    showPrevImg('ms-group-preview',prev&&prev.img?prev.img:null);
     document.getElementById('ms-group-modal').classList.add('open');
 }
 function closeMsGroup(){document.getElementById('ms-group-modal').classList.remove('open');}
@@ -2282,13 +2345,18 @@ function saveMsGroup(){
     const members=[...document.querySelectorAll('#ms-group-members input:checked')].map(c=>c.value);
     readImage('ms-group-image',(imgData)=>{
         const finalImg=imgData||(prev?prev.img:null);
-        const gpRec={done:true,img:finalImg,text,by:currentUser.name,members,time:nowTime()};
+        const g=findGroup(currentUser.no);
+        const editing=prev && feedExists(prev.feedId);
+        const content=`📸 [우리 그룹 단체사진] ${g.name} 단체샷!`;
+        let feedId=prev?prev.feedId:null;
+        if(editing){updateFeed(feedId,{content,note:text,img:finalImg,time:nowTime()});}
+        else{const item=pushFeed({author:`${g.name}`,day:guessUserDay(),content,note:text,img:finalImg,tag:'미션 STEP5'});feedId=item.id;}
+        const gpRec={done:true,img:finalImg,text,by:currentUser.name,members,time:nowTime(),feedId};
         missionData[groupPhotoKey(currentUser.no)]=gpRec;
         persist(ST.mission,missionData);dbSet('mission/'+groupPhotoKey(currentUser.no),gpRec);
-        const g=findGroup(currentUser.no);
-        pushFeed({author:`${g.name}`,day:guessUserDay(),content:`📸 [우리 그룹 단체사진] ${g.name} 단체샷!`,note:text,img:finalImg,tag:'미션 STEP5'});
         checkMissionComplete();
         closeMsGroup();renderStampBoard();renderFeeds();
+        if(editing){alert('수정 완료! ✍️ 현장 피드 글도 함께 수정되었습니다.');return;}
         switchTab('tab-feed');
         alert('단체사진 등록 완료! 🎉 함께한 팀원 모두 STEP5 완료 처리됩니다.');
     });
@@ -2298,15 +2366,22 @@ function saveMsGroup(){
 let moSelected=[];
 function openMsOther(){
     moSelected=[];
+    const prev6=getUserStamps().s6;
+    const mine6=prev6 && (!prev6.by || prev6.by===currentUser.name);
     document.getElementById('mo-hq').innerHTML='<option value="">본부</option>';
     fillSel(document.getElementById('mo-hq'));
     document.getElementById('mo-group').innerHTML='<option value="">그룹</option>';
     document.getElementById('mo-members').innerHTML='<div class="live-empty">본부·그룹을 선택하면 명단이 나옵니다.</div>';
     document.getElementById('mo-selected-cnt').innerText='함께한 CL: 0명';
     document.getElementById('mo-selected-list').innerHTML='';
-    document.getElementById('ms-other-text').value='';
+    document.getElementById('ms-other-text').value=(mine6&&prev6.text)?prev6.text:'';
     document.getElementById('ms-other-image').value='';
     bindPreview('ms-other-image','ms-other-preview');
+    showPrevImg('ms-other-preview',(mine6&&prev6.img)?prev6.img:null);
+    if(mine6&&Array.isArray(prev6.withCL)){
+        moSelected=prev6.withCL.filter(x=>!(x.no===currentUser.no&&x.name===currentUser.name)).map(x=>({no:x.no,name:x.name}));
+        renderMoSelected();
+    }
     document.getElementById('ms-other-modal').classList.add('open');
 }
 function moHqChange(){const gid=document.getElementById('mo-hq').value;const sg=document.getElementById('mo-group');
@@ -2350,13 +2425,24 @@ function saveMsOther(){
     if(!already && imgInput.files.length===0){alert('인증샷은 필수입니다! 📸');return;}
     readImage('ms-other-image',(imgData)=>{
         const names=moSelected.map(x=>{const g=findGroup(x.no);return `${g.name} ${x.name}`;}).join(', ');
-        saveUserStamp('s6',{text,img:imgData,withCL:moSelected});
         const g=findGroup(currentUser.no);
-        pushFeed({author:`${g.name} · ${currentUser.name}`,day:guessUserDay(),content:`🤝 [타 그룹 CL 인증샷] ${currentUser.name} + ${names}`,note:text,img:imgData,tag:'미션 STEP6'});
+        const together=[{no:currentUser.no,name:currentUser.name}].concat(moSelected);
+        const mine=already && (!already.by || already.by===currentUser.name);
+        const finalImg=imgData||(mine?already.img:null);
+        const content=`🤝 [타 그룹 CL 인증샷] ${currentUser.name} + ${names}`;
+        const editing=mine && feedExists(already.feedId);
+        let feedId=mine?already.feedId:null;
+        if(editing){updateFeed(feedId,{content,note:text,img:finalImg,time:nowTime()});}
+        else{const item=pushFeed({author:`${g.name} · ${currentUser.name}`,day:guessUserDay(),content,note:text,img:finalImg,tag:'미션 STEP6'});feedId=item.id;}
+        /* 함께 찍은 CL 전원 STEP6 완료 처리 (수정 시에는 본인 기록 갱신) */
+        const mk=missionKey(currentUser.no,currentUser.name);
+        if(missionData[mk]&&missionData[mk].s6)delete missionData[mk].s6;
+        together.forEach(p=>saveStampFor(p.no,p.name,'s6',{text,img:finalImg,withCL:together,by:currentUser.name,feedId}));
         checkMissionComplete();
         closeMsOther();renderStampBoard();renderFeeds();
+        if(editing){alert('수정 완료! ✍️ 현장 피드 글도 함께 수정되었습니다.');return;}
         switchTab('tab-feed');
-        alert('인증샷 등록 완료! 🎉 현장 피드로 이동합니다.');
+        alert(`인증샷 등록 완료! 🎉\n함께한 CL ${moSelected.length}명도 STEP 6가 완료 처리되었습니다.`);
     });
 }
 
@@ -2769,7 +2855,7 @@ function buildRosterRows(){
         const gp=missionData[groupPhotoKey(g.no)];
         const s5done=(ms.s5&&ms.s5.done)||(gp&&(gp.by===m.n||(gp.members||[]).includes(m.n)));
         let mdone=0;['s1','s2','s3','s4','s6'].forEach(k=>{if(ms[k]&&ms[k].done)mdone++;});if(s5done)mdone++;
-        rows.push({group:g.name,name:m.n,pos:m.p||'',lead:m.l,
+        rows.push({group:g.name,name:m.n,pos:m.p||'',lead:isLeader(g.no,m.n),no:g.no,
             apply:[ap.d1?'1':'',ap.d2?'2':'',ap.etc?'기타':''].filter(Boolean).join('/')||'-',
             att:[at.d1?'1':'',at.d2?'2':'',at.etc?'기타':''].filter(Boolean).join('/')||'-',
             mission:mdone+'/6',
@@ -2783,9 +2869,10 @@ function renderRoster(){
     const body=document.getElementById('roster-body');body.innerHTML='';
     let rows=buildRosterRows();
     const k=rosterSort.key,dir=rosterSort.asc?1:-1;
-    rows.sort((a,b)=>{let va=a[k],vb=b[k];if(typeof va==='number')return(va-vb)*dir;return String(va).localeCompare(String(vb),'ko')*dir;});
+    rows.sort((a,b)=>{let va=a[k],vb=b[k];if(typeof va==='boolean')return((va?0:1)-(vb?0:1))*dir;if(typeof va==='number')return(va-vb)*dir;return String(va).localeCompare(String(vb),'ko')*dir;});
     rows.forEach(r=>{const tr=document.createElement('tr');
         tr.innerHTML=`<td>${r.group}</td><td>${r.lead?'🏅':''}${r.name}</td><td>${r.pos}</td>
+            <td><button class="lead-chk${r.lead?' on':''}" onclick="toggleLeader('${r.no}','${r.name}')" title="클릭하여 그룹장 권한 부여/해제">${r.lead?'O':'–'}</button></td>
             <td><span class="roster-tag ${r.apply!=='-'?'rt-y':'rt-n'}">${r.apply}</span></td>
             <td><span class="roster-tag ${r.att!=='-'?'rt-y':'rt-n'}">${r.att}</span></td>
             <td><span class="roster-tag ${r.mission!=='0/6'?'rt-y':'rt-n'}">${r.mission}</span></td>
@@ -2984,7 +3071,7 @@ function rosterExportRows(){
     const rows=buildRosterRows();
     const k=rosterSort.key,dir=rosterSort.asc?1:-1;
     rows.sort((a,b)=>{let va=a[k],vb=b[k];if(typeof va==='number')return(va-vb)*dir;return String(va).localeCompare(String(vb),'ko')*dir;});
-    return rows.map(r=>({'그룹':r.group,'이름':(r.lead?'[그룹장] ':'')+r.name,'직위':r.pos,'신청':r.apply,'출석':r.att,
+    return rows.map(r=>({'그룹':r.group,'이름':r.name,'그룹장':r.lead?'O':'','직위':r.pos,'신청':r.apply,'출석':r.att,
         '미션':r.mission,'피드':r.feed,'기타 사유':r.reason||'','메모':memoData[r.key]||''}));
 }
 function exportRoster(){
@@ -2993,7 +3080,7 @@ function exportRoster(){
     const stamp=`${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}_${String(d.getHours()).padStart(2,'0')}${String(d.getMinutes()).padStart(2,'0')}`;
     if(typeof XLSX!=='undefined'){
         const ws=XLSX.utils.json_to_sheet(data);
-        ws['!cols']=[{wch:14},{wch:14},{wch:12},{wch:8},{wch:8},{wch:8},{wch:6},{wch:26},{wch:26}];
+        ws['!cols']=[{wch:14},{wch:12},{wch:7},{wch:12},{wch:8},{wch:8},{wch:8},{wch:6},{wch:26},{wch:26}];
         const wb=XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb,ws,'CL 명단');
         XLSX.writeFile(wb,`CL명단_${stamp}.xlsx`);
