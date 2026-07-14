@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HD현대 건설기계부문 CL 활동 | AI Program</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+:root{--bg:#0b0f19;--head:#111827;--card:#1e293b;--tx:#f8fafc;--mut:#94a3b8;--pri:#f59e0b;--acc:#3b82f6;--a:#10b981;--b:#8b5cf6;--c:#ec4899;--d:#f59e0b;}
+body{font-family:'Pretendard',-apple-system,system-ui,sans-serif;background:var(--bg);color:var(--tx);margin:0;line-height:1.5;}
+.dashboard-header{background:var(--head);padding:15px 30px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1f2937;flex-wrap:wrap;gap:15px;}
+.brand-zone{display:flex;align-items:center;gap:15px;}
+.badge-main{background:var(--pri);color:#000;font-weight:800;padding:6px 12px;border-radius:6px;font-size:.85rem;}
+.title-main{font-size:1.25rem;font-weight:700;}.title-sub{font-size:.85rem;color:var(--mut);margin-top:2px;}
+.nav-menu-group{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.nav-tab-btn{background:#1f2937;border:1px solid #374151;color:var(--mut);padding:10px 18px;border-radius:8px;cursor:pointer;font-weight:600;font-size:.9rem;display:flex;align-items:center;gap:6px;transition:.2s;}
+.nav-tab-btn:hover{color:var(--tx);border-color:#4b5563;}
+.nav-tab-btn.active{background:var(--pri);color:#000;border-color:var(--pri);}
+.nav-tab-btn.off{opacity:.45;}
+.nav-tab-btn.off::after{content:" (관리자용)";font-size:.7rem;}
+.nav-gear{background:#1f2937;border:1px solid #374151;color:var(--mut);width:42px;height:42px;border-radius:8px;cursor:pointer;font-size:1.2rem;}
+.nav-gear:hover{color:var(--pri);}
+.admin-badge{background:#ef4444;color:#fff;font-size:.7rem;font-weight:800;padding:4px 8px;border-radius:6px;display:none;}
+.admin-badge.on{display:inline-block;}
+.container{max-width:1400px;margin:0 auto;padding:30px;}
+.tab-content{display:none;}.tab-content.active{display:block;}
+.timeline-top-bar{background:#fff;color:#1e293b;padding:20px 30px;border-radius:16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;box-shadow:0 4px 6px -1px rgba(0,0,0,.1);flex-wrap:wrap;gap:15px;}
+.timeline-title-area h2{margin:0;font-size:1.4rem;font-weight:800;display:flex;align-items:center;gap:8px;}
+.timeline-title-area p{margin:5px 0 0;font-size:.85rem;color:#64748b;}
+.date-switcher{display:flex;gap:8px;align-items:center;}
+.date-btn{padding:14px 24px;border-radius:10px;font-size:1.05rem;font-weight:800;border:1px solid #e2e8f0;cursor:pointer;color:#64748b;background:#f1f5f9;}
+.date-btn.active{background:#0f172a;color:#fff;border-color:#0f172a;}
+.btn-summary{padding:14px 20px;border-radius:10px;font-size:.95rem;font-weight:800;border:none;cursor:pointer;background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;}
+.subtab-bar{display:grid;grid-template-columns:1fr 1fr;margin-bottom:20px;background:#3b2f10;border:1px solid #f59e0b44;border-radius:12px;overflow:hidden;}
+.subtab-btn{padding:16px;border:none;background:transparent;color:#fcd34d;font-weight:800;font-size:1.05rem;cursor:pointer;transition:.2s;}
+.subtab-btn.active{background:var(--pri);color:#000;}
+.subtab-content{display:none;}.subtab-content.active{display:block;}
+.day-subtitle{color:var(--tx);font-size:.95rem;margin:0 0 20px;font-weight:700;background:linear-gradient(90deg,rgba(59,130,246,.15),rgba(59,130,246,0));padding:12px 16px;border-radius:10px;border-left:4px solid var(--acc);}
+.section-headline{font-size:1.25rem;font-weight:700;margin:35px 0 15px;padding-left:10px;border-left:4px solid #3b82f6;display:flex;align-items:center;gap:8px;}
+.keynote-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;}
+.card-session{background:var(--card);border:1px solid #2d3748;border-radius:12px;padding:20px;position:relative;display:flex;flex-direction:column;justify-content:space-between;min-height:120px;}
+.card-session:hover{border-color:#4a5568;}
+.card-tag{font-size:.75rem;font-weight:700;color:#3b82f6;background:rgba(59,130,246,.1);padding:3px 8px;border-radius:4px;width:fit-content;margin-bottom:10px;}
+.card-title{font-size:.95rem;font-weight:700;line-height:1.4;margin-bottom:12px;padding-right:35px;}
+.card-speaker{font-size:.8rem;color:var(--mut);margin-top:auto;}
+.btn-heart{position:absolute;top:18px;right:18px;background:transparent;border:none;color:#4b5563;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;gap:4px;}
+.btn-heart:active{transform:scale(.9);}.btn-heart.active{color:#ef4444;}
+.heart-count{font-size:.8rem;color:var(--mut);}.btn-heart.active .heart-count{color:#ef4444;}
+.timeline-divider{background:linear-gradient(90deg,rgba(30,41,59,0),rgba(30,41,59,1) 50%,rgba(30,41,59,0));text-align:center;padding:12px;color:var(--mut);font-size:.85rem;font-weight:700;margin:30px 0;border-top:1px dashed #334155;border-bottom:1px dashed #334155;}
+.table-scroll{overflow-x:auto;border-radius:12px;border:1px solid #2d3748;margin-top:15px;}
+.track-table{width:100%;border-collapse:collapse;min-width:1000px;background:#111827;}
+.track-table th,.track-table td{padding:20px;border:1px solid #2d3748;vertical-align:top;}
+.track-table th{background:#0f172a;text-align:left;font-size:.95rem;}
+.track-main-title{font-size:1rem;font-weight:800;margin-bottom:4px;}
+.track-sub-title{font-size:.8rem;color:var(--mut);font-weight:400;}
+.th-track-a{border-top:4px solid var(--a)!important;color:var(--a);}.th-track-b{border-top:4px solid var(--b)!important;color:var(--b);}
+.th-track-c{border-top:4px solid var(--c)!important;color:var(--c);}.th-track-d{border-top:4px solid var(--d)!important;color:var(--d);}
+.td-time{font-weight:700;color:var(--mut);text-align:center;background:#0f172a;width:70px;vertical-align:middle;}
+.day-content{display:none;}.day-content.active{display:block;}
+.expo-placeholder{background:var(--card);border:1px dashed #475569;border-radius:12px;padding:40px;text-align:center;color:var(--mut);}
+.placeholder-page{background:var(--head);border:1px solid #2d3748;border-radius:16px;padding:40px;}
+.placeholder-page h2{text-align:center;}.placeholder-page>p{text-align:center;}
+.att-summary{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin:25px auto 35px;padding:20px;max-width:900px;background:var(--card);border-radius:12px;border:1px solid #334155;}
+.summary-item{text-align:center;}.summary-item .num{font-size:1.8rem;font-weight:800;color:var(--pri);}.summary-item .lbl{font-size:.8rem;color:var(--mut);}
+.btn-live{background:var(--acc);color:#fff;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700;}
+.hq-block{margin-bottom:20px;}
+.hq-label{font-size:.95rem;font-weight:700;margin-bottom:10px;padding-left:8px;border-left:3px solid var(--pri);}
+.cl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;}
+.cl-card{background:var(--card);border:1px solid #334155;border-radius:10px;padding:15px;position:relative;}
+.cl-card.checked{border-color:var(--a);box-shadow:0 0 0 1px var(--a);}
+.cl-no{font-size:.7rem;font-weight:800;color:#000;background:var(--pri);padding:2px 6px;border-radius:4px;position:absolute;top:12px;right:12px;}
+.cl-name{font-size:.95rem;font-weight:700;margin-bottom:3px;padding-right:40px;}
+.cl-count-badge{font-size:.8rem;color:var(--a);font-weight:700;}
+.btn-cl-check{width:100%;margin-top:10px;background:var(--acc);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-weight:700;font-size:.85rem;}
+.btn-cl-check.done{background:var(--a);}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;justify-content:center;align-items:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--head);border:1px solid #334155;border-radius:14px;padding:25px;max-width:500px;width:100%;max-height:85vh;overflow-y:auto;}
+.modal-box.wide{max-width:900px;}
+.modal-box h3{margin:0 0 5px;}.modal-sub{color:var(--mut);font-size:.85rem;margin-bottom:18px;}
+.member-row{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:#0f172a;margin-bottom:8px;flex-wrap:wrap;}
+.member-row .mname{flex:1;font-weight:600;}.member-row .mpos{font-size:.7rem;color:var(--mut);font-weight:400;}
+.day-toggle{display:flex;gap:6px;}
+.chk-btn{padding:5px 10px;border-radius:6px;border:1px solid #475569;background:#1e293b;color:var(--mut);cursor:pointer;font-size:.75rem;font-weight:700;}
+.chk-btn.on{background:var(--a);color:#fff;border-color:var(--a);}
+.modal-actions{display:flex;gap:10px;margin-top:18px;}
+.modal-actions button{flex:1;padding:12px;border-radius:8px;border:none;font-weight:700;cursor:pointer;}
+.btn-save{background:var(--pri);color:#000;}.btn-close{background:#374151;color:var(--tx);}
+.btn-danger{background:#ef4444;color:#fff;}
+.live-columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.live-col{background:#0f172a;border:1px solid #334155;border-radius:12px;overflow:hidden;}
+.live-col-head{padding:14px;font-weight:800;font-size:1rem;color:#fff;text-align:center;display:flex;flex-direction:column;gap:2px;}
+.live-col-head.d1{background:linear-gradient(135deg,#3b82f6,#1d4ed8);}
+.live-col-head.d2{background:linear-gradient(135deg,#8b5cf6,#6d28d9);}
+.live-col-head .cnt{font-size:1.5rem;}
+.live-col-body{padding:12px;max-height:50vh;overflow-y:auto;}
+.live-group{margin-bottom:10px;}
+.live-group-title{font-size:.72rem;color:var(--pri);font-weight:800;margin-bottom:4px;padding-bottom:3px;border-bottom:1px solid #334155;}
+.live-item{font-size:.85rem;padding:6px 10px;background:#1e293b;border-radius:8px;margin-bottom:4px;}
+.live-item .mpos{font-size:.7rem;color:var(--mut);}
+.live-empty{color:#475569;font-size:.85rem;text-align:center;padding:20px 0;}
+.dash-sub-toggle{display:flex;gap:6px;margin:8px 0;}
+.dash-sub-btn{flex:1;padding:6px;font-size:.72rem;font-weight:700;border-radius:6px;border:1px solid #475569;background:#1e293b;color:var(--mut);cursor:pointer;}
+.dash-sub-btn.on{background:#334155;color:#fff;}
+.dash-sub-panel{display:none;margin-top:6px;}
+.dash-sub-panel.open{display:block;}
+@media(max-width:720px){.live-columns{grid-template-columns:1fr;}}
+.top5-columns{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.top5-col-title{font-weight:800;margin:0 0 10px;color:var(--pri);text-align:center;padding:8px;background:#0f172a;border-radius:8px;}
+.top5-item{display:flex;align-items:center;gap:10px;background:#0f172a;padding:10px 12px;border-radius:8px;margin-bottom:6px;}
+.top5-rank{font-weight:800;color:var(--pri);width:24px;}
+.top5-t{flex:1;font-size:.85rem;}.top5-c{color:#ef4444;font-weight:700;font-size:.85rem;}
+@media(max-width:620px){.top5-columns{grid-template-columns:1fr;}}
+.apply-box{max-width:560px;margin:0 auto 25px;background:var(--card);border-radius:12px;padding:25px;border:1px solid #334155;}
+.apply-box label{display:block;font-size:.8rem;color:var(--mut);margin-bottom:5px;font-weight:600;}
+.apply-box select,.apply-box textarea{width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:10px;margin-bottom:14px;font-family:inherit;}
+.apply-day-row{display:flex;gap:8px;margin-bottom:14px;}
+.apply-day-btn{flex:1;padding:12px;border-radius:8px;border:1px solid #475569;background:#0f172a;color:var(--mut);font-weight:700;cursor:pointer;}
+.apply-day-btn.on{background:var(--acc);color:#fff;border-color:var(--acc);}
+.btn-apply{width:100%;background:var(--pri);color:#000;border:none;padding:12px;border-radius:8px;font-weight:800;cursor:pointer;}
+.feed-write-box{max-width:600px;margin:0 auto 25px;background:var(--card);border-radius:12px;padding:20px;border:1px solid #334155;}
+.feed-write-box select,.feed-write-box textarea,.feed-write-box input[type=file]{width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:10px;margin-bottom:10px;font-family:inherit;}
+.feed-write-box textarea{resize:vertical;min-height:70px;}
+.feed-selector-row{display:flex;gap:10px;}.feed-selector-row select{flex:1;}
+.feed-day-row{display:flex;gap:10px;margin-bottom:10px;}
+.feed-day-btn{flex:1;padding:10px;border-radius:8px;border:1px solid #475569;background:#0f172a;color:var(--mut);font-weight:700;cursor:pointer;}
+.feed-day-btn.on{background:var(--acc);color:#fff;border-color:var(--acc);}
+.feed-day-btn:disabled{opacity:.35;cursor:not-allowed;}
+.btn-feed-submit{background:var(--pri);color:#000;border:none;padding:10px 20px;border-radius:8px;font-weight:700;cursor:pointer;width:100%;}
+.feed-list{max-width:600px;margin:0 auto;}
+.feed-item-card{background:var(--card);border-radius:10px;padding:15px;margin-bottom:15px;text-align:left;border-left:4px solid var(--pri);position:relative;}
+.feed-item-card.mission{border-left-color:var(--a);background:linear-gradient(135deg,rgba(16,185,129,.12),var(--card));}
+.feed-day-badge{display:inline-block;font-size:.7rem;font-weight:800;padding:2px 8px;border-radius:5px;margin-left:8px;}
+.feed-day-badge.d1{background:rgba(59,130,246,.2);color:#60a5fa;}.feed-day-badge.d2{background:rgba(139,92,246,.2);color:#a78bfa;}
+.feed-tag-badge{display:inline-block;font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:5px;margin-left:6px;background:rgba(245,158,11,.18);color:var(--pri);}
+.feed-item-card img{max-width:100%;border-radius:8px;margin-top:10px;}
+.btn-feed-del{position:absolute;top:12px;right:12px;background:transparent;border:none;color:#475569;cursor:pointer;font-size:1rem;}
+.btn-feed-del:hover{color:#ef4444;}
+.feed-actions{display:flex;gap:15px;margin-top:12px;align-items:center;}
+.feed-act-btn{background:transparent;border:none;color:var(--mut);cursor:pointer;font-size:.85rem;font-weight:600;display:flex;align-items:center;gap:4px;}
+.feed-act-btn.liked{color:#ef4444;}
+.reply-box{margin-top:12px;padding-top:12px;border-top:1px solid #334155;}
+.reply-item{background:#0f172a;border-radius:8px;padding:8px 12px;margin-bottom:6px;font-size:.85rem;}
+.reply-item .rauthor{font-weight:700;color:var(--acc);}
+.reply-input-row{display:flex;gap:8px;margin-top:8px;}
+.reply-input-row input{flex:1;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:8px;font-family:inherit;}
+.reply-input-row button{background:var(--acc);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;}
+.settings-sec{background:var(--card);border:1px solid #334155;border-radius:12px;padding:22px;margin-bottom:20px;}
+.settings-sec h3{margin:0 0 15px;font-size:1.1rem;}
+.toggle-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #1f2937;}
+.toggle-row:last-child{border-bottom:none;}
+.switch{position:relative;width:48px;height:26px;}.switch input{opacity:0;width:0;height:0;}
+.slider{position:absolute;inset:0;background:#475569;border-radius:26px;cursor:pointer;transition:.2s;}
+.slider:before{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;}
+.switch input:checked+.slider{background:var(--a);}.switch input:checked+.slider:before{transform:translateX(22px);}
+.roster-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+.roster-table th,.roster-table td{padding:8px 10px;border-bottom:1px solid #334155;text-align:left;}
+.roster-table th{color:var(--mut);position:sticky;top:0;background:var(--card);cursor:pointer;user-select:none;}
+.roster-table th:hover{color:var(--pri);}
+.roster-table td input{width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:6px;padding:5px;font-family:inherit;font-size:.8rem;}
+.roster-scroll{max-height:55vh;overflow-y:auto;border:1px solid #334155;border-radius:10px;}
+.roster-tag{font-size:.7rem;padding:2px 6px;border-radius:5px;font-weight:700;}
+.rt-y{background:rgba(16,185,129,.2);color:var(--a);}.rt-n{background:#334155;color:var(--mut);}
+.pw-box{max-width:360px;}
+.pw-box input{width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:12px;font-size:1rem;text-align:center;letter-spacing:4px;margin-bottom:12px;}
+.btn-normal-mode{background:#334155;border:1px solid #475569;color:var(--tx);padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-size:.85rem;display:none;}
+.btn-normal-mode.on{display:inline-block;}
+.invite-hero{background:linear-gradient(135deg,#111827,#1e293b);border:1px solid #334155;border-radius:20px;padding:40px 30px;text-align:center;margin-bottom:24px;position:relative;overflow:hidden;}
+.invite-hero:before{content:"";position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(245,158,11,.25),transparent 70%);}
+.invite-hero .kicker{color:var(--pri);font-weight:800;letter-spacing:2px;font-size:.8rem;}
+.invite-hero h1{font-size:1.9rem;margin:10px 0;font-weight:900;line-height:1.3;}
+.invite-hero p{color:var(--mut);max-width:640px;margin:0 auto;font-size:.95rem;}
+.invite-purpose{background:var(--card);border:1px solid #334155;border-radius:16px;padding:26px;margin-bottom:24px;}
+.invite-purpose h3{margin:0 0 12px;font-size:1.15rem;display:flex;align-items:center;gap:8px;}
+.invite-purpose ul{margin:0;padding-left:20px;color:#cbd5e1;line-height:1.9;}
+.login-box{max-width:560px;margin:0 auto 24px;background:var(--card);border:1px solid #334155;border-radius:14px;padding:22px;}
+.login-box h3{margin:0 0 14px;font-size:1.1rem;display:flex;align-items:center;gap:8px;}
+.login-box .picker-row{display:flex;gap:10px;margin-bottom:12px;}
+.login-box select{flex:1;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:10px;font-family:inherit;}
+.btn-login{width:100%;background:var(--pri);color:#000;border:none;padding:12px;border-radius:8px;font-weight:800;cursor:pointer;font-size:1rem;}
+.login-status{margin-top:12px;text-align:center;font-weight:700;color:var(--a);display:none;}
+.login-status.on{display:block;}
+.btn-logout{background:transparent;border:1px solid #475569;color:var(--mut);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:.75rem;font-weight:700;margin-left:8px;}
+.stamp-board{max-width:960px;margin:0 auto;position:relative;}
+.stamp-locked-msg{text-align:center;color:var(--mut);padding:40px 0;font-weight:700;}
+.stamp-progress-head{text-align:center;margin-bottom:8px;}
+.stamp-progress-head .who{font-weight:800;font-size:1.1rem;}
+.stamp-progress-head .prog{color:var(--pri);font-weight:800;}
+.stamp-bar{height:12px;background:#0f172a;border:1px solid #334155;border-radius:20px;overflow:hidden;margin:10px auto 26px;max-width:600px;}
+.stamp-bar > div{height:100%;background:linear-gradient(90deg,var(--a),#34d399);transition:width .5s;}
+.stamp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:760px){.stamp-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.stamp-grid{grid-template-columns:1fr;}}
+.stamp-card{background:var(--card);border:2px dashed #475569;border-radius:18px;padding:20px;text-align:center;position:relative;transition:.3s;opacity:.45;filter:grayscale(.6);}
+.stamp-board.unlocked .stamp-card{opacity:1;filter:none;}
+.stamp-card.done{border-style:solid;border-color:var(--a);box-shadow:0 0 0 2px rgba(16,185,129,.3);}
+.stamp-circle{width:80px;height:80px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:2rem;background:#0f172a;border:3px solid #475569;position:relative;transition:.3s;}
+.stamp-card.done .stamp-circle{border-color:var(--a);background:radial-gradient(circle,rgba(16,185,129,.25),#0f172a);}
+.stamp-mark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2.2rem;color:#ef4444;font-weight:900;opacity:0;transform:rotate(-18deg) scale(1.6);transition:.4s;border:4px solid #ef4444;border-radius:50%;width:70px;height:70px;margin:auto;}
+.stamp-card.done .stamp-mark{opacity:.92;transform:rotate(-18deg) scale(1);}
+.stamp-step-no{font-size:.72rem;font-weight:800;color:var(--pri);letter-spacing:1px;}
+.stamp-title{font-weight:800;margin:4px 0 6px;font-size:1rem;}
+.stamp-desc{font-size:.76rem;color:var(--mut);min-height:44px;margin-bottom:10px;}
+.stamp-btn-row{display:flex;flex-direction:column;gap:6px;}
+.btn-stamp{width:100%;background:var(--acc);color:#fff;border:none;padding:9px;border-radius:8px;font-weight:800;cursor:pointer;font-size:.85rem;}
+.btn-stamp.done{background:var(--a);}
+.btn-stamp.sub{background:#334155;color:#cbd5e1;font-weight:700;font-size:.78rem;padding:7px;}
+.btn-stamp:disabled{background:#334155;color:#64748b;cursor:not-allowed;}
+.pandora-wrap{display:none;text-align:center;margin:30px auto 0;max-width:640px;}
+.pandora-wrap.on{display:block;animation:pop .5s;}
+.btn-pandora{background:linear-gradient(135deg,#f59e0b,#ef4444,#8b5cf6);background-size:200% 200%;color:#fff;border:none;padding:20px 34px;border-radius:16px;font-weight:900;font-size:1.2rem;cursor:pointer;box-shadow:0 10px 30px rgba(139,92,246,.4);animation:glow 2s infinite;}
+@keyframes glow{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+@keyframes pop{0%{transform:scale(.8);opacity:0;}100%{transform:scale(1);opacity:1;}}
+.pandora-modal-box{text-align:center;background:linear-gradient(135deg,#1e293b,#111827);border:2px solid var(--pri);}
+.pandora-gift{font-size:4rem;animation:pop .6s;}
+.pandora-msg{font-size:1.15rem;font-weight:800;margin:14px 0;line-height:1.6;}
+.pandora-sub{color:var(--mut);font-size:.9rem;}
+.member-check-list{max-height:220px;overflow-y:auto;background:#0f172a;border:1px solid #475569;border-radius:8px;padding:8px;margin-bottom:12px;}
+.mc-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;}
+.mc-item:hover{background:#1e293b;}
+.mc-item input{width:16px;height:16px;}
+.stamp-modal-preview{max-width:100%;border-radius:10px;margin-top:8px;display:none;}
+.confetti{position:fixed;width:10px;height:10px;z-index:200;pointer-events:none;}
+</style>
+</head>
+<body>
+
+<header class="dashboard-header">
+    <div class="brand-zone">
+        <span class="badge-main">AI SUMMIT 2026</span>
+        <div>
+            <div class="title-main">HD현대 건설기계부문 CL 활동 <span class="admin-badge" id="admin-badge">관리자 모드</span></div>
+            <div class="title-sub">'26.08.19-20 / W. CL 95명 전원</div>
+        </div>
+    </div>
+    <div class="nav-menu-group" id="nav-group">
+        <button class="nav-tab-btn active" data-tab="tab-invite" onclick="switchTab('tab-invite',this)">🚀 CL 미션 안내</button>
+        <button class="nav-tab-btn" data-tab="tab-agenda" onclick="switchTab('tab-agenda',this)">🤖 AI Program</button>
+        <button class="nav-tab-btn" data-tab="tab-apply" onclick="switchTab('tab-apply',this)">📝 일정 신청</button>
+        <button class="nav-tab-btn" data-tab="tab-attendance" onclick="switchTab('tab-attendance',this)">👤 CL 출석 확인</button>
+        <button class="nav-tab-btn" data-tab="tab-feed" onclick="switchTab('tab-feed',this)">💬 현장 실시간 피드</button>
+        <button class="btn-normal-mode" id="btn-normal-mode" onclick="exitAdmin()">🚪 일반모드로</button>
+        <button class="nav-gear" title="관리자 설정" onclick="requestAdmin()">⚙️</button>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- ===== CL 미션 안내 탭 ===== -->
+    <div id="tab-invite" class="tab-content active">
+        <div class="invite-hero">
+            <div class="kicker">HD현대 건설기계부문 X AI SUMMIT 2026</div>
+            <h1>🚀 건설기계 CL의 AI 현장 미션 안내</h1>
+            <p>AI Summit 현장에서 총 <b style="color:var(--pri)">6가지 미션</b>을 하나씩 완료해보세요.<br>6가지 미션을 모두 완료하면 <b style="color:var(--pri)">판도라의 상자</b>가 열릴거예요! ✨</p>
+        </div>
+        <div class="invite-purpose">
+            <h3>🎯 활동 목적</h3>
+            <ul>
+                <li>최신 AI 트렌드를 <b>직접 경험</b>하고 현업 적용 아이디어 발굴</li>
+                <li>CL 간 <b>현장 소통·네트워킹</b> 강화</li>
+                <li>인상 깊은 세션을 <b>공유</b>하며 부문 전체의 AI 인사이트 확산</li>
+            </ul>
+        </div>
+        <div class="login-box">
+            <h3>🪪 건설기계 CL 로그인</h3>
+            <div class="picker-row">
+                <select id="ms-hq" onchange="msHqChange()"><option value="">본부</option></select>
+                <select id="ms-group" onchange="msGroupChange()"><option value="">그룹</option></select>
+                <select id="ms-member"><option value="">이름</option></select>
+            </div>
+            <button class="btn-login" onclick="doLogin()">🔓 로그인하고 미션 시작</button>
+            <div class="login-status" id="login-status"></div>
+        </div>
+        <div class="stamp-board" id="stamp-board">
+            <div class="stamp-locked-msg" id="stamp-locked">⬆️ 위에서 본부·그룹·이름을 선택하고 <b style="color:var(--pri)">로그인</b>하면 미션이 활성화됩니다.</div>
+            <div id="stamp-active" style="display:none;">
+                <div class="stamp-progress-head">
+                    <div class="who" id="stamp-who"></div>
+                    <div class="prog" id="stamp-prog"></div>
+                </div>
+                <div class="stamp-bar"><div id="stamp-bar-fill" style="width:0%"></div></div>
+                <div class="stamp-grid" id="stamp-grid"></div>
+                <div class="pandora-wrap" id="pandora-wrap">
+                    <button class="btn-pandora" onclick="openPandora()">🎁 판도라 상자 열기 🎁</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Program -->
+    <div id="tab-agenda" class="tab-content">
+        <div class="timeline-top-bar">
+            <div class="timeline-title-area">
+                <h2>🤖 AI Summit Program</h2>
+                <p>관심 있는 주제에 ❤️를 클릭해주세요, CL이 평소 궁금한 AI 주제를 공유해주세요</p>
+            </div>
+            <div class="date-switcher">
+                <button class="date-btn active" onclick="switchDate(this,1)">1일차 (8/19)</button>
+                <button class="date-btn" onclick="switchDate(this,2)">2일차 (8/20)</button>
+                <button class="btn-summary" onclick="openSummary()">📊 관심 요약</button>
+            </div>
+        </div>
+        <div class="subtab-bar">
+            <button class="subtab-btn active" onclick="switchSub('conference',this)">🎤 Conference</button>
+            <button class="subtab-btn" onclick="switchSub('expo',this)">🏢 Expo</button>
+        </div>
+        <div id="sub-conference" class="subtab-content active">
+            <div class="day-content active" data-day="1">
+                <div class="day-subtitle">📌 1일차 주제 : AI Frontier · Agentic Commerce · Applied AI</div>
+                <div class="section-headline">💡 Keynote Sessions</div>
+                <div class="keynote-container">
+                    <div class="card-session"><span class="card-tag">인공지능의 미래</span><div class="card-title">글로벌 AI 현황과 지역의 AI</div><div class="card-speaker">샤 사자디에 | 스탠포드 HAI</div><button class="btn-heart" data-hid="k1" data-day="1" data-cat="conference" data-title="글로벌 AI 현황과 지역의 AI" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                    <div class="card-session"><span class="card-tag">에이전트형 AI</span><div class="card-title">AI 어시스턴트에서 에이전틱 AI의 시대</div><div class="card-speaker">래리 헥 교수 | 조지아공대</div><button class="btn-heart" data-hid="k2" data-day="1" data-cat="conference" data-title="에이전틱 AI의 시대" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                    <div class="card-session"><span class="card-tag">패널</span><div class="card-title">AI 에이전트의 다음 단계</div><div class="card-speaker">래리 헥, 케이 주, 김윤 외</div><button class="btn-heart" data-hid="k3" data-day="1" data-cat="conference" data-title="AI 에이전트의 다음 단계" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                    <div class="card-session"><span class="card-tag">우주 AI</span><div class="card-title">60개 위성이 스스로 협력하는 법</div><div class="card-speaker">스티브 치엔 | NASA JPL</div><button class="btn-heart" data-hid="k4" data-day="1" data-cat="conference" data-title="60개 위성 자율 협력" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                </div>
+                <div class="timeline-divider">☕ 오전 휴식</div>
+                <div class="keynote-container">
+                    <div class="card-session"><span class="card-tag">기초 모델</span><div class="card-title">재단 모델의 AI와 의사결정의 과학</div><div class="card-speaker">앤드류 다이 | 엘로리안 AI</div><button class="btn-heart" data-hid="k5" data-day="1" data-cat="conference" data-title="재단 모델과 의사결정" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                    <div class="card-session"><span class="card-tag">LLM</span><div class="card-title">LLM은 도움을 주는 부서입니까?</div><div class="card-speaker">이준기 교수 | 연세대</div><button class="btn-heart" data-hid="k6" data-day="1" data-cat="conference" data-title="LLM은 도움을 주는 부서" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                </div>
+                <div class="timeline-divider">🍱 점심 식사</div>
+                <div class="section-headline">⚡ Afternoon Tracks</div>
+                <div class="table-scroll"><table class="track-table">
+                    <thead><tr><th style="width:70px;">시간</th>
+                        <th class="th-track-a"><div class="track-main-title">트랙 A</div><div class="track-sub-title">산업에 AI 적용</div></th>
+                        <th class="th-track-b"><div class="track-main-title">트랙 B</div><div class="track-sub-title">에이전트형 AI</div></th>
+                        <th class="th-track-c"><div class="track-main-title">트랙 C</div><div class="track-sub-title">파운데이션 모델</div></th>
+                        <th class="th-track-d"><div class="track-main-title">트랙 D</div><div class="track-sub-title">산업 혁신</div></th></tr></thead>
+                    <tbody>
+                    <tr><td class="td-time">1</td>
+                        <td><div class="card-session"><div class="card-title">라이프스타일 데이터와 AI 연결</div><div class="card-speaker">신정은 | LG전자</div><button class="btn-heart" data-hid="s1a" data-day="1" data-cat="conference" data-title="라이프스타일 데이터와 AI" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">AI Agent 숨가쁜 진화</div><div class="card-speaker">김훈동 | KT</div><button class="btn-heart" data-hid="s1b" data-day="1" data-cat="conference" data-title="AI Agent 진화" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">AI 모델은 평준화될까요?</div><div class="card-speaker">모데레이터</div><button class="btn-heart" data-hid="s1c" data-day="1" data-cat="conference" data-title="AI 모델 평준화" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">다크 팩토리</div><div class="card-speaker">장연세 | 팩토리랩</div><button class="btn-heart" data-hid="s1d" data-day="1" data-cat="conference" data-title="다크 팩토리" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td></tr>
+                    <tr><td class="td-time">2</td>
+                        <td><div class="card-session"><div class="card-title">소우주 기계: 에이전틱 AI 진화</div><div class="card-speaker">밀린드 | 벤츠</div><button class="btn-heart" data-hid="s2a" data-day="1" data-cat="conference" data-title="소우주 기계" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">에이전트형 AI의 맹점</div><div class="card-speaker">알렉스 | 구구</div><button class="btn-heart" data-hid="s2b" data-day="1" data-cat="conference" data-title="에이전트형 AI 맹점" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">AI가 세상을 볼 수 없는 이유</div><div class="card-speaker">앤드류 다이 | 엘로리안</div><button class="btn-heart" data-hid="s2c" data-day="1" data-cat="conference" data-title="AI가 세상을 볼 수 없는 이유" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">R&D, AI 혁신을 만나다</div><div class="card-speaker">임준호 | LG엔솔</div><button class="btn-heart" data-hid="s2d" data-day="1" data-cat="conference" data-title="R&D AI 혁신" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td></tr>
+                    <tr><td class="td-time">3</td>
+                        <td><div class="card-session"><div class="card-title">비즈니스 혁신 AI 전략</div><div class="card-speaker">막심 | 구글 클라우드</div><button class="btn-heart" data-hid="s3a" data-day="1" data-cat="conference" data-title="비즈니스 혁신 AI 전략" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">에이전트 오케스트레이션</div><div class="card-speaker">이근형 | 포스코이앤씨</div><button class="btn-heart" data-hid="s3b" data-day="1" data-cat="conference" data-title="에이전트 오케스트레이션" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">LLM에서 에이전트 생태계로</div><div class="card-speaker">Alibaba Cloud</div><button class="btn-heart" data-hid="s3c" data-day="1" data-cat="conference" data-title="에이전트 생태계" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">경쟁은 '협업'에서 결정된다</div><div class="card-speaker">이동원 | 미로</div><button class="btn-heart" data-hid="s3d" data-day="1" data-cat="conference" data-title="협업에서 결정" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td></tr>
+                    <tr><td colspan="5" style="background:#0f172a;text-align:center;padding:10px;font-weight:bold;color:#64748b;">☕ 오후 휴식</td></tr>
+                    <tr><td class="td-time">5</td>
+                        <td><div class="card-session"><div class="card-title">오픈소스 vs 클로즈드</div><div class="card-speaker">로랑 | 퍼블리시스</div><button class="btn-heart" data-hid="s5a" data-day="1" data-cat="conference" data-title="오픈소스 vs 클로즈드" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">Synthesia 비디오 생성 AI</div><div class="card-speaker">신세시아</div><button class="btn-heart" data-hid="s5b" data-day="1" data-cat="conference" data-title="Synthesia 비디오 생성" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">나만의 목소리로</div><div class="card-speaker">차정원 | 어도비</div><button class="btn-heart" data-hid="s5c" data-day="1" data-cat="conference" data-title="나만의 목소리로" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">AI Workspace</div><div class="card-speaker">박대성 | 노션</div><button class="btn-heart" data-hid="s5d" data-day="1" data-cat="conference" data-title="AI Workspace" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td></tr>
+                    <tr><td class="td-time">6</td>
+                        <td><div class="card-session"><div class="card-title">에이전트 결제와 AI 흐름</div><div class="card-speaker">리처드 리 | 인텐셔널</div><button class="btn-heart" data-hid="s6a" data-day="1" data-cat="conference" data-title="에이전트 결제" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">전틱 AI DevSecOps</div><div class="card-speaker">김정한 | 깃랩</div><button class="btn-heart" data-hid="s6b" data-day="1" data-cat="conference" data-title="DevSecOps" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">미래 데이터: 마케팅~건설</div><div class="card-speaker">합성 데이터</div><button class="btn-heart" data-hid="s6c" data-day="1" data-cat="conference" data-title="미래 데이터" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">의료 에이전트 프레임워크</div><div class="card-speaker">잭 추아 | Stealth</div><button class="btn-heart" data-hid="s6d" data-day="1" data-cat="conference" data-title="의료 에이전트" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td></tr>
+                    </tbody></table></div>
+            </div>
+            <div class="day-content" data-day="2">
+                <div class="day-subtitle">📌 2일차 주제 : Sovereign AI · AI Transformation · Data Infrastructure</div>
+                <div class="section-headline">💡 Keynote Sessions</div>
+                <div class="keynote-container">
+                    <div class="card-session"><span class="card-tag">디자인</span><div class="card-title">AI 시대, 디자인 혁신</div><div class="card-speaker">Savannah Kunovsky | IDEO</div><button class="btn-heart" data-hid="d2k1" data-day="2" data-cat="conference" data-title="AI 시대 디자인 혁신" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                    <div class="card-session"><span class="card-tag">AI 의료</span><div class="card-title">가상 환자와 AI 의료의 미래</div><div class="card-speaker">Hoifung Poon | MS Research</div><button class="btn-heart" data-hid="d2k2" data-day="2" data-cat="conference" data-title="가상 환자와 AI 의료" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                    <div class="card-session"><span class="card-tag">Physical AI</span><div class="card-title">피지컬 AI가 바꿀 산업</div><div class="card-speaker">이승용 | LIG</div><button class="btn-heart" data-hid="d2k3" data-day="2" data-cat="conference" data-title="피지컬 AI가 바꿀 산업" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                    <div class="card-session"><span class="card-tag">패널</span><div class="card-title">AI Native Enterprise 성공 조건</div><div class="card-speaker">전준희, 황재선, 서아란</div><button class="btn-heart" data-hid="d2k5" data-day="2" data-cat="conference" data-title="AI Native Enterprise" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                </div>
+                <div class="timeline-divider">🍱 점심 식사</div>
+                <div class="section-headline">⚡ Afternoon Tracks</div>
+                <div class="table-scroll"><table class="track-table">
+                    <thead><tr><th style="width:70px;">시간</th>
+                        <th class="th-track-a"><div class="track-main-title">트랙 A</div><div class="track-sub-title">Enterprise AI</div></th>
+                        <th class="th-track-b"><div class="track-main-title">트랙 B</div><div class="track-sub-title">AI Agents & OSS</div></th>
+                        <th class="th-track-c"><div class="track-main-title">트랙 C</div><div class="track-sub-title">Sovereign AI</div></th>
+                        <th class="th-track-d"><div class="track-main-title">트랙 D</div><div class="track-sub-title">AI Data & Infra</div></th></tr></thead>
+                    <tbody>
+                    <tr><td class="td-time">1</td>
+                        <td><div class="card-session"><div class="card-title">전통 산업의 최신 AI 활용</div><div class="card-speaker">Ramine Tinati | Google DeepMind</div><button class="btn-heart" data-hid="d2s1a" data-day="2" data-cat="conference" data-title="전통 산업 AI 활용" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">멀티 에이전트 프레임워크</div><div class="card-speaker">연사 미정</div><button class="btn-heart" data-hid="d2s1b" data-day="2" data-cat="conference" data-title="멀티 에이전트 프레임워크" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">대규모 피지컬 AI 구현</div><div class="card-speaker">Pannag Sanketi | Avolla</div><button class="btn-heart" data-hid="d2s1c" data-day="2" data-cat="conference" data-title="대규모 피지컬 AI" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">엔터프라이즈 AI 숨겨진 병목</div><div class="card-speaker">연사 미정</div><button class="btn-heart" data-hid="d2s1d" data-day="2" data-cat="conference" data-title="숨겨진 병목" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td></tr>
+                    <tr><td class="td-time">2</td>
+                        <td><div class="card-session"><div class="card-title">신한카드 AX 확산 전략</div><div class="card-speaker">안선희 | 신한카드</div><button class="btn-heart" data-hid="d2s2a" data-day="2" data-cat="conference" data-title="신한카드 AX" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">엣지 AI 프론티어 모델</div><div class="card-speaker">Maxime Labonne | Liquid AI</div><button class="btn-heart" data-hid="d2s2b" data-day="2" data-cat="conference" data-title="엣지 AI 모델" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">로보틱스로 여는 미래</div><div class="card-speaker">주시현 | 현대차</div><button class="btn-heart" data-hid="d2s2c" data-day="2" data-cat="conference" data-title="로보틱스 미래" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">시스템 현실의 간극 메우기</div><div class="card-speaker">이동수 | a2zys</div><button class="btn-heart" data-hid="d2s2d" data-day="2" data-cat="conference" data-title="시스템 간극" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td></tr>
+                    <tr><td class="td-time">5</td>
+                        <td><div class="card-session"><div class="card-title">예측 AI가 이끄는 AX</div><div class="card-speaker">정두희 | 한동대</div><button class="btn-heart" data-hid="d2s5a" data-day="2" data-cat="conference" data-title="예측 AI AX" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">Oracle 세션</div><div class="card-speaker">Oracle</div><button class="btn-heart" data-hid="d2s5b" data-day="2" data-cat="conference" data-title="Oracle" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">온톨로지 기반 실행 계층</div><div class="card-speaker">이승현 | Enhans</div><button class="btn-heart" data-hid="d2s5c" data-day="2" data-cat="conference" data-title="온톨로지 실행 계층" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">인간과 AI 선순환 루프</div><div class="card-speaker">박지수 | Cast AI</div><button class="btn-heart" data-hid="d2s5d" data-day="2" data-cat="conference" data-title="선순환 루프" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td></tr>
+                    <tr><td class="td-time">7</td>
+                        <td><div class="card-session"><div class="card-title">자율 의료 AI의 시대</div><div class="card-speaker">최윤섭 | DHP</div><button class="btn-heart" data-hid="d2s7a" data-day="2" data-cat="conference" data-title="자율 의료 AI" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">오픈소스 오케스트레이션</div><div class="card-speaker">연사 미정</div><button class="btn-heart" data-hid="d2s7b" data-day="2" data-cat="conference" data-title="오픈소스 오케스트레이션" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">중국 공급망 제조 유니콘</div><div class="card-speaker">연사 미정</div><button class="btn-heart" data-hid="d2s7c" data-day="2" data-cat="conference" data-title="중국 공급망 유니콘" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td>
+                        <td><div class="card-session"><div class="card-title">나만의 전문가 AI 팀</div><div class="card-speaker">황민호 | 카카오</div><button class="btn-heart" data-hid="d2s7d" data-day="2" data-cat="conference" data-title="전문가 AI 팀" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div></td></tr>
+                    </tbody></table></div>
+            </div>
+        </div>
+        <div id="sub-expo" class="subtab-content">
+            <div class="day-content active" data-day="1">
+                <div class="day-subtitle">📌 1일차 Expo</div>
+                <div class="keynote-container">
+                    <div class="card-session"><span class="card-tag">부스</span><div class="card-title">[예시] AI 반도체 & 인프라 존</div><div class="card-speaker">부스 정보 입력 예정</div><button class="btn-heart" data-hid="e1a" data-day="1" data-cat="expo" data-title="AI 반도체 & 인프라 존" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                    <div class="card-session"><span class="card-tag">부스</span><div class="card-title">[예시] 로보틱스 & 피지컬 AI 존</div><div class="card-speaker">부스 정보 입력 예정</div><button class="btn-heart" data-hid="e1b" data-day="1" data-cat="expo" data-title="로보틱스 & 피지컬 AI 존" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                    <div class="card-session"><span class="card-tag">부스</span><div class="card-title">[예시] 생성형 AI 솔루션 존</div><div class="card-speaker">부스 정보 입력 예정</div><button class="btn-heart" data-hid="e1c" data-day="1" data-cat="expo" data-title="생성형 AI 솔루션 존" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                </div>
+                <div class="expo-placeholder" style="margin-top:20px;">🏢 실제 Expo 부스/주제를 주시면 교체해 드립니다.</div>
+            </div>
+            <div class="day-content" data-day="2">
+                <div class="day-subtitle">📌 2일차 Expo</div>
+                <div class="keynote-container">
+                    <div class="card-session"><span class="card-tag">부스</span><div class="card-title">[예시] Sovereign AI 국가전략 존</div><div class="card-speaker">부스 정보 입력 예정</div><button class="btn-heart" data-hid="e2a" data-day="2" data-cat="expo" data-title="Sovereign AI 존" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                    <div class="card-session"><span class="card-tag">부스</span><div class="card-title">[예시] Data Infra 존</div><div class="card-speaker">부스 정보 입력 예정</div><button class="btn-heart" data-hid="e2b" data-day="2" data-cat="expo" data-title="Data Infra 존" onclick="clickHeart(this)">♥ <span class="heart-count">0</span></button></div>
+                </div>
+                <div class="expo-placeholder" style="margin-top:20px;">🏢 2일차 Expo 정보를 주시면 채워드립니다.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 일정 신청 결과 (대시보드만) -->
+    <div id="tab-apply" class="tab-content">
+        <div class="placeholder-page">
+            <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+                <button class="btn-live" style="background:#334155;" onclick="switchTab('tab-invite')">⬅️ CL 미션 안내로 돌아가기</button>
+            </div>
+            <h3 style="text-align:center;">📊 실시간 참여 대시보드</h3>
+            <p style="text-align:center;color:var(--mut);font-size:.85rem;">[CL 미션 안내]에서 신청 가능하며, 본인 이름 클릭 시 신청 일정 변경이 가능합니다.</p>
+            <div class="live-columns" id="apply-dashboard" style="margin-top:20px;"></div>
+        </div>
+    </div>
+
+    <!-- 출석 확인 -->
+    <div id="tab-attendance" class="tab-content">
+        <div class="placeholder-page">
+            <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+                <button class="btn-live" style="background:#334155;" onclick="switchTab('tab-invite')">⬅️ CL 미션 안내로 돌아가기</button>
+            </div>
+            <h2>📋 '26년 건설기계 CL 출석 현황</h2>
+            <div class="att-summary">
+                <div class="summary-item"><div class="num" id="total-groups">0</div><div class="lbl">전체 CL 그룹</div></div>
+                <div class="summary-item"><div class="num" id="checked-groups">0</div><div class="lbl">출석 완료 그룹</div></div>
+                <div class="summary-item"><div class="num" id="total-people">0</div><div class="lbl">총 참석 인원</div></div>
+                <div class="summary-item" style="display:flex;align-items:center;"><button class="btn-live" onclick="openLiveModal()">📡 실시간 확인</button></div>
+            </div>
+            <div id="att-org"></div>
+        </div>
+    </div>
+
+    <!-- 피드 -->
+    <div id="tab-feed" class="tab-content">
+        <div class="placeholder-page">
+            <h2>💬 현장 실시간 피드 및 소통방</h2>
+            <p style="color:var(--mut);margin-bottom:30px;">현장의 반응과 질문을 실시간으로 공유하세요!</p>
+            <div class="feed-write-box">
+                <div class="feed-day-row">
+                    <button type="button" class="feed-day-btn on" data-day="1" onclick="selFeedDay(this)">1일차 (8/19)</button>
+                    <button type="button" class="feed-day-btn" data-day="2" onclick="selFeedDay(this)">2일차 (8/20)</button>
+                </div>
+                <div class="feed-selector-row">
+                    <select id="sel-hq" onchange="onHqChange()"><option value="">본부 선택</option></select>
+                    <select id="sel-group" onchange="onGroupChange()"><option value="">그룹 선택</option></select>
+                    <select id="sel-member"><option value="">이름 선택</option></select>
+                </div>
+                <textarea id="feed-content" placeholder="현장에서 느낀 점, 질문, 공지를 남겨주세요!" maxlength="300"></textarea>
+                <input type="file" id="feed-image" accept="image/*">
+                <button class="btn-feed-submit" onclick="addFeed()">✍️ 피드 등록</button>
+            </div>
+            <div class="feed-list" id="feed-list"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 출석 모달 -->
+<div class="modal-overlay" id="att-modal"><div class="modal-box">
+    <h3 id="modal-group-name"></h3>
+    <div id="modal-members"></div>
+    <div class="modal-actions"><button class="btn-save" onclick="saveAttModal()">확인</button></div>
+</div></div>
+
+<!-- 실시간 출석 모달 -->
+<div class="modal-overlay" id="live-modal"><div class="modal-box wide">
+    <h3>📡 실시간 출석 현황</h3><div class="modal-sub">일차별 출석 CL 명단</div>
+    <div class="live-columns">
+        <div class="live-col"><div class="live-col-head d1">1일차 (8/19)<span class="cnt" id="live-d1-cnt">0명</span></div><div class="live-col-body" id="live-d1-body"></div></div>
+        <div class="live-col"><div class="live-col-head d2">2일차 (8/20)<span class="cnt" id="live-d2-cnt">0명</span></div><div class="live-col-body" id="live-d2-body"></div></div>
+    </div>
+    <div class="modal-actions"><button class="btn-close" onclick="closeLiveModal()">닫기</button></div>
+</div></div>
+
+<!-- 관심 요약 모달 -->
+<div class="modal-overlay" id="summary-modal"><div class="modal-box wide">
+    <h3>📊 관심 요약 (Top 5)</h3><div class="modal-sub">Conference / Expo 하트 반응 순위</div>
+    <div class="apply-day-row" style="max-width:320px;">
+        <button type="button" class="apply-day-btn on" data-day="1" onclick="sumSelDay(this)">1일차</button>
+        <button type="button" class="apply-day-btn" data-day="2" onclick="sumSelDay(this)">2일차</button>
+    </div>
+    <div class="top5-columns" id="summary-content"></div>
+    <div class="modal-actions"><button class="btn-close" onclick="document.getElementById('summary-modal').classList.remove('open')">닫기</button></div>
+</div></div>
+
+<!-- 관리자 PW 모달 -->
+<div class="modal-overlay" id="pw-modal"><div class="modal-box pw-box">
+    <h3>🔐 관리자 인증</h3><div class="modal-sub">관리자 비밀번호를 입력하세요.</div>
+    <input type="password" id="pw-input" maxlength="10" placeholder="● ● ● ●" onkeydown="if(event.key==='Enter')checkPw()">
+    <div class="modal-actions"><button class="btn-close" onclick="document.getElementById('pw-modal').classList.remove('open')">취소</button><button class="btn-save" onclick="checkPw()">확인</button></div>
+</div></div>
+
+<!-- STEP1 일정신청 모달 -->
+<div class="modal-overlay" id="ms-apply-modal"><div class="modal-box">
+    <h3>📅 STEP 1 · AI Summit 일정 신청 <span style="font-size:.75rem;color:var(--mut)">(~7/29)</span></h3>
+    <div class="modal-sub">참여 일정을 택 1로 선택하세요. (언제든 자유롭게 수정 가능)</div>
+    <div class="apply-day-row">
+        <button type="button" class="apply-day-btn" data-day="1" onclick="msApSelDay(this)">1일차 (8/19)</button>
+        <button type="button" class="apply-day-btn" data-day="2" onclick="msApSelDay(this)">2일차 (8/20)</button>
+        <button type="button" class="apply-day-btn" data-day="etc" onclick="msApSelDay(this)">기타</button>
+    </div>
+    <div id="ms-ap-etc-wrap" style="display:none;">
+        <label style="display:block;font-size:.8rem;color:var(--mut);margin-bottom:5px;font-weight:600;">기타 사유 (관리자만 확인)</label>
+        <textarea id="ms-ap-etc" style="width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:10px;font-family:inherit;" placeholder="기타 참여/불참 사유"></textarea>
+    </div>
+    <div class="modal-actions"><button class="btn-close" onclick="closeMsApply()">취소</button><button class="btn-save" onclick="saveMsApply()">✅ 신청/수정</button></div>
+</div></div>
+
+<!-- STEP2 출석 모달 -->
+<div class="modal-overlay" id="ms-att-modal"><div class="modal-box">
+    <h3>🪪 STEP 2 · CL 출석체크</h3>
+    <div class="modal-sub">참석일을 택 1로 선택하세요. (자유롭게 수정 가능) · 인증샷은 현장 피드로 공유됩니다.</div>
+    <div class="apply-day-row">
+        <button type="button" class="apply-day-btn" data-day="d1" onclick="msAtSelDay(this)">1일차</button>
+        <button type="button" class="apply-day-btn" data-day="d2" onclick="msAtSelDay(this)">2일차</button>
+        <button type="button" class="apply-day-btn" data-day="etc" onclick="msAtSelDay(this)">기타</button>
+    </div>
+    <label style="display:block;font-size:.8rem;color:var(--mut);margin:4px 0 5px;font-weight:600;">이름표 인증샷 <span style="color:#ef4444">(필수)</span></label>
+    <input type="file" id="ms-att-image" accept="image/*" style="width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:10px;font-family:inherit;">
+    <img id="ms-att-preview" class="stamp-modal-preview">
+    <div class="modal-actions"><button class="btn-close" onclick="closeMsAtt()">취소</button><button class="btn-save" onclick="saveMsAtt()">✅ 출석도장</button></div>
+</div></div>
+
+<!-- STEP3/4 세션 공유 모달 -->
+<div class="modal-overlay" id="ms-sess-modal"><div class="modal-box">
+    <h3 id="ms-sess-title"></h3><div class="modal-sub" id="ms-sess-sub"></div>
+    <label style="display:block;font-size:.8rem;color:var(--mut);margin-bottom:5px;font-weight:600;">가장 인상 깊은 점 (자유 입력)</label>
+    <textarea id="ms-sess-text" style="width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:10px;font-family:inherit;min-height:70px;" placeholder="어떤 세션이 인상 깊었나요?"></textarea>
+    <label style="display:block;font-size:.8rem;color:var(--mut);margin:8px 0 5px;font-weight:600;">인증샷 <span style="color:#ef4444">(필수)</span></label>
+    <input type="file" id="ms-sess-image" accept="image/*" style="width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:10px;font-family:inherit;">
+    <img id="ms-sess-preview" class="stamp-modal-preview">
+    <div class="modal-actions"><button class="btn-close" onclick="closeMsSess()">취소</button><button class="btn-save" onclick="saveMsSess()">✅ 공유</button></div>
+</div></div>
+
+<!-- STEP5 단체사진 모달 -->
+<div class="modal-overlay" id="ms-group-modal"><div class="modal-box">
+    <h3>📸 STEP 5 · 우리 그룹 단체사진</h3>
+    <div class="modal-sub">그룹장이 올리면 함께한 팀원 전체가 완료 처리됩니다.</div>
+    <label style="display:block;font-size:.8rem;color:var(--mut);margin-bottom:5px;font-weight:600;">함께한 팀원 선택 (복수 선택)</label>
+    <div class="member-check-list" id="ms-group-members"></div>
+    <label style="display:block;font-size:.8rem;color:var(--mut);margin-bottom:5px;font-weight:600;">한 줄 코멘트</label>
+    <textarea id="ms-group-text" style="width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:10px;font-family:inherit;" placeholder="우리 그룹 단체샷 소감!"></textarea>
+    <label style="display:block;font-size:.8rem;color:var(--mut);margin:8px 0 5px;font-weight:600;">단체사진 <span style="color:#ef4444">(필수)</span></label>
+    <input type="file" id="ms-group-image" accept="image/*" style="width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:10px;font-family:inherit;">
+    <img id="ms-group-preview" class="stamp-modal-preview">
+    <div class="modal-actions"><button class="btn-close" onclick="closeMsGroup()">취소</button><button class="btn-save" onclick="saveMsGroup()">✅ 단체사진 등록</button></div>
+</div></div>
+
+<!-- STEP6 타그룹 CL 인증 모달 -->
+<div class="modal-overlay" id="ms-other-modal"><div class="modal-box">
+    <h3>🤝 STEP 6 · 우리팀이 아닌 CL과 인증샷</h3>
+    <div class="modal-sub">함께한 다른 그룹 CL을 선택하세요. (본부가 달라도 여러 명 선택 가능)</div>
+    <div class="picker-row" style="display:flex;gap:8px;margin-bottom:8px;">
+        <select id="mo-hq" onchange="moHqChange()" style="flex:1;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:9px;font-family:inherit;"><option value="">본부</option></select>
+        <select id="mo-group" onchange="moGroupChange()" style="flex:1;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:9px;font-family:inherit;"><option value="">그룹</option></select>
+    </div>
+    <div class="member-check-list" id="mo-members"><div class="live-empty">본부·그룹을 선택하면 명단이 나옵니다.</div></div>
+    <div style="font-size:.78rem;color:var(--pri);font-weight:700;margin-bottom:8px;" id="mo-selected-cnt">함께한 CL: 0명</div>
+    <div style="font-size:.72rem;color:var(--mut);margin-bottom:8px;" id="mo-selected-list"></div>
+    <label style="display:block;font-size:.8rem;color:var(--mut);margin-bottom:5px;font-weight:600;">한 줄 코멘트</label>
+    <textarea id="ms-other-text" style="width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:10px;font-family:inherit;" placeholder="어떤 CL과 함께했나요?"></textarea>
+    <label style="display:block;font-size:.8rem;color:var(--mut);margin:8px 0 5px;font-weight:600;">인증샷 <span style="color:#ef4444">(필수)</span></label>
+    <input type="file" id="ms-other-image" accept="image/*" style="width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #475569;color:var(--tx);border-radius:8px;padding:10px;font-family:inherit;">
+    <img id="ms-other-preview" class="stamp-modal-preview">
+    <div class="modal-actions"><button class="btn-close" onclick="closeMsOther()">취소</button><button class="btn-save" onclick="saveMsOther()">✅ 인증샷 등록</button></div>
+</div></div>
+
+<!-- 판도라 상자 모달 -->
+<div class="modal-overlay" id="pandora-modal"><div class="modal-box pandora-modal-box">
+    <div class="pandora-gift">🎁</div>
+    <div class="pandora-msg">축하합니다! 🎉<br>6가지 미션을 모두 완료하셨습니다!</div>
+    <div class="pandora-sub" id="pandora-sub"></div>
+    <div class="modal-actions"><button class="btn-save" onclick="document.getElementById('pandora-modal').classList.remove('open')">감사합니다 😊</button></div>
+</div></div>
+
+<!-- 설정 모달 -->
+<div class="modal-overlay" id="settings-modal"><div class="modal-box wide">
+    <h3>⚙️ 관리자 설정</h3><div class="modal-sub">탭 노출, 일자별 기능, CL 명단, 데이터 초기화를 관리합니다.</div>
+    <div class="settings-sec">
+        <h3>🧭 상단 탭 ON/OFF <span style="font-size:.75rem;color:var(--mut);">(OFF여도 관리자에게는 표시됩니다)</span></h3>
+        <div class="toggle-row"><span>🚀 CL 미션 안내</span><label class="switch"><input type="checkbox" data-set="tab-invite" onchange="setToggle(this)"><span class="slider"></span></label></div>
+        <div class="toggle-row"><span>🤖 AI Program</span><label class="switch"><input type="checkbox" data-set="tab-agenda" onchange="setToggle(this)"><span class="slider"></span></label></div>
+        <div class="toggle-row"><span>📝 일정 신청 <span style="font-size:.7rem;color:var(--mut)">(일반사용자는 미션 안내에서 신청)</span></span><label class="switch"><input type="checkbox" data-set="tab-apply" onchange="setToggle(this)"><span class="slider"></span></label></div>
+        <div class="toggle-row"><span>👤 CL 출석 확인 <span style="font-size:.7rem;color:var(--mut)">(일반사용자는 미션 안내에서 체크)</span></span><label class="switch"><input type="checkbox" data-set="tab-attendance" onchange="setToggle(this)"><span class="slider"></span></label></div>
+        <div class="toggle-row"><span>💬 현장 실시간 피드</span><label class="switch"><input type="checkbox" data-set="tab-feed" onchange="setToggle(this)"><span class="slider"></span></label></div>
+    </div>
+    <div class="settings-sec">
+        <h3>💬 피드 일자별</h3>
+        <div class="toggle-row"><span>1일차 작성 허용</span><label class="switch"><input type="checkbox" data-set="feed-d1" onchange="setToggle(this)"><span class="slider"></span></label></div>
+        <div class="toggle-row"><span>2일차 작성 허용</span><label class="switch"><input type="checkbox" data-set="feed-d2" onchange="setToggle(this)"><span class="slider"></span></label></div>
+    </div>
+    <div class="settings-sec">
+        <h3>👤 출석 일자별</h3>
+        <div class="toggle-row"><span>1일차 체크 허용</span><label class="switch"><input type="checkbox" data-set="att-d1" onchange="setToggle(this)"><span class="slider"></span></label></div>
+        <div class="toggle-row"><span>2일차 체크 허용</span><label class="switch"><input type="checkbox" data-set="att-d2" onchange="setToggle(this)"><span class="slider"></span></label></div>
+    </div>
+    <div class="settings-sec">
+        <h3>📋 전체 CL 명단 관리 <span style="font-size:.75rem;color:var(--mut);">(헤더 클릭 시 정렬)</span></h3>
+        <div class="roster-scroll"><table class="roster-table">
+            <thead><tr>
+                <th onclick="sortRoster('group')">그룹 ⇅</th><th onclick="sortRoster('name')">이름 ⇅</th><th onclick="sortRoster('pos')">직위 ⇅</th>
+                <th onclick="sortRoster('apply')">신청 ⇅</th><th onclick="sortRoster('att')">출석 ⇅</th><th onclick="sortRoster('mission')">미션 ⇅</th><th onclick="sortRoster('feed')">피드 ⇅</th><th>기타 사유</th><th>메모</th>
+            </tr></thead>
+            <tbody id="roster-body"></tbody>
+        </table></div>
+    </div>
+    <div class="settings-sec">
+        <h3>🗑️ 데이터 초기화</h3>
+        <div class="modal-actions" style="flex-wrap:wrap;">
+            <button class="btn-danger" onclick="resetData('apply')">일정신청 초기화</button>
+            <button class="btn-danger" onclick="resetData('att')">출석 초기화</button>
+            <button class="btn-danger" onclick="resetData('heart')">하트 초기화</button>
+            <button class="btn-danger" onclick="resetData('feed')">피드 초기화</button>
+            <button class="btn-danger" onclick="resetData('mission')">미션 초기화</button>
+            <button class="btn-danger" onclick="resetData('all')">⚠️ 전체 초기화</button>
+        </div>
+    </div>
+    <div class="modal-actions"><button class="btn-close" onclick="closeSettings()">닫기</button></div>
+</div></div>
+<script>
+const orgData = {
+'grid-hce':{hq:'건기 영업본부',groups:[
+    {no:'01',name:'AM/PS',members:[{n:'심승현',p:'책임매니저',l:true},{n:'황효선',p:'책임매니저'},{n:'박교진',p:'선임매니저'},{n:'신명인',p:'책임매니저'},{n:'김근우',p:'책임매니저'},{n:'백승주',p:'책임매니저'}]},
+    {no:'02',name:'해외영업',members:[{n:'오지헌',p:'선임매니저',l:true},{n:'김진혁',p:'책임매니저'},{n:'김덕현',p:'책임매니저'},{n:'백준호',p:'책임매니저'}]},
+    {no:'03',name:'한국영업',members:[{n:'지용운',p:'책임매니저',l:true},{n:'최민수',p:'책임매니저'}]},
+    {no:'04',name:'영업기획',members:[{n:'이강훈',p:'책임매니저',l:true},{n:'조민규',p:'선임연구원'},{n:'윤석현',p:'책임매니저'}]},
+]},
+'grid-eng':{hq:'엔진사업본부',groups:[
+    {no:'05',name:'엔진제품개발',members:[{n:'김양래',p:'책임연구원',l:true},{n:'이상현',p:'책임연구원'},{n:'김동진',p:'선임연구원'},{n:'차우준',p:'선임매니저'},{n:'신영환',p:'선임연구원'}]},
+    {no:'06',name:'엔진시험',members:[{n:'이승준',p:'책임연구원',l:true},{n:'박광문',p:'책임연구원'},{n:'남태우',p:'책임연구원'}]},
+    {no:'07',name:'엔진생산',members:[{n:'최경원',p:'선임매니저',l:true},{n:'홍진표',p:'책임매니저'},{n:'조성식',p:'책임매니저'}]},
+    {no:'08',name:'엔진영업',members:[{n:'강두원',p:'책임매니저',l:true},{n:'최영종',p:'책임매니저'},{n:'김국중',p:'책임매니저'}]},
+]},
+'grid-qual':{hq:'생산품질본부',groups:[
+    {no:'09',name:'군산캠퍼스',members:[{n:'강준영',p:'선임매니저',l:true},{n:'최원범',p:'선임매니저'}]},
+    {no:'10',name:'인천캠퍼스',members:[{n:'안가람',p:'책임매니저',l:true},{n:'연규훈',p:'책임매니저'},{n:'차경태',p:'책임매니저'}]},
+    {no:'11',name:'울산캠퍼스',members:[{n:'이강대',p:'책임매니저',l:true},{n:'김어진',p:'선임매니저'},{n:'박윤옥',p:'선임매니저'},{n:'윤형근',p:'선임매니저'},{n:'이상기',p:'책임매니저'},{n:'송승철',p:'선임매니저'}]},
+    {no:'12',name:'건기품질',members:[{n:'이승우',p:'책임매니저',l:true},{n:'이태민',p:'선임매니저'},{n:'류승철',p:'책임매니저'},{n:'권민철',p:'책임매니저'},{n:'박기덕',p:'책임매니저'}]},
+]},
+'grid-dev':{hq:'제품개발본부',groups:[
+    {no:'13',name:'제품개발-전기전자',members:[{n:'김윤혜',p:'책임연구원',l:true},{n:'양지수',p:'책임연구원'},{n:'전현성',p:'선임연구원'},{n:'김세원',p:'책임연구원'}]},
+    {no:'14',name:'제품기획/직할',members:[{n:'문강민',p:'책임연구원',l:true},{n:'장성민',p:'책임연구원'},{n:'손호익',p:'책임연구원'}]},
+    {no:'15',name:'제품설계',members:[{n:'김진혁',p:'책임연구원',l:true},{n:'차현수',p:'책임연구원'},{n:'박광하',p:'책임연구원'},{n:'조정오',p:'책임연구원'}]},
+    {no:'16',name:'제품시험',members:[{n:'이민혁',p:'책임연구원',l:true},{n:'박영훈',p:'책임연구원'},{n:'최지호',p:'책임연구원'},{n:'한관수',p:'책임연구원'},{n:'김유래',p:'책임연구원'}]},
+]},
+'grid-tech':{hq:'기술원',groups:[
+    {no:'17',name:'기술원',members:[{n:'김현석',p:'책임연구원',l:true},{n:'전수웅',p:'책임'},{n:'이민주',p:'책임연구원'},{n:'김무갑',p:'선임연구원'},{n:'염한솔',p:'책임연구원'}]},
+]},
+'grid-comp':{hq:'산차/컴포넌트본부',groups:[
+    {no:'18',name:'산차영업',members:[{n:'김동근',p:'책임매니저',l:true},{n:'윤지연',p:'책임매니저'},{n:'김지훈',p:'선임매니저'}]},
+    {no:'19',name:'산차생산',members:[{n:'이정훈',p:'책임매니저',l:true},{n:'정수민',p:'선임매니저'}]},
+    {no:'20',name:'산차제품',members:[{n:'황도경',p:'책임연구원',l:true},{n:'박영호',p:'책임연구원'},{n:'박규현',p:'책임연구원'}]},
+    {no:'21',name:'컴포넌트솔루션',members:[{n:'박규민',p:'선임연구원',l:true},{n:'오관창',p:'책임매니저'},{n:'김형진',p:'선임매니저'}]},
+]},
+'grid-mgmt':{hq:'경영지원본부',groups:[
+    {no:'22',name:'HR운영/경영지원',members:[{n:'유형준',p:'선임매니저',l:true},{n:'강민종',p:'선임매니저'},{n:'김영대',p:'책임매니저'},{n:'류호식',p:'책임매니저'},{n:'김진',p:'책임매니저'}]},
+    {no:'23',name:'재무/경영기획',members:[{n:'김병기',p:'책임매니저',l:true},{n:'한준성',p:'선임매니저'},{n:'신의석',p:'선임매니저'}]},
+    {no:'24',name:'ICT지원',members:[{n:'박상훈',p:'책임매니저',l:true},{n:'이상현',p:'선임매니저'},{n:'최성훈',p:'선임매니저'}]},
+    {no:'25',name:'구매',members:[{n:'송경태',p:'책임매니저',l:true},{n:'유창원',p:'책임매니저'},{n:'윤재섭',p:'책임매니저'},{n:'봉인균',p:'책임매니저'},{n:'신동우',p:'책임매니저'}]},
+]},
+'grid-ehs':{hq:'EHS (직할)',groups:[
+    {no:'26',name:'EHS',members:[{n:'김근형',p:'선임매니저',l:true},{n:'하철호',p:'책임매니저'}]},
+]},
+};
+
+const ADMIN_PW='0000';
+const ST={att:'clV8_att',heart:'clV8_heart',feed:'clV8_feed',apply:'clV8_apply',set:'clV8_set',memo:'clV8_memo',mission:'clV8_mission',login:'clV8_login'};
+let attData=JSON.parse(localStorage.getItem(ST.att)||'{}');
+let applyData=JSON.parse(localStorage.getItem(ST.apply)||'{}');
+let memoData=JSON.parse(localStorage.getItem(ST.memo)||'{}');
+let missionData=JSON.parse(localStorage.getItem(ST.mission)||'{}');
+let settings=JSON.parse(localStorage.getItem(ST.set)||'{}');
+const defaultSet={'tab-invite':true,'tab-agenda':true,'tab-apply':false,'tab-attendance':false,'tab-feed':true,'feed-d1':true,'feed-d2':true,'att-d1':true,'att-d2':true};
+settings=Object.assign({},defaultSet,settings);
+let feedDay='1',apDay='1',sumDay='1',currentModalGroupNo=null,isAdmin=false;
+let rosterSort={key:'group',asc:true};
+let currentUser=JSON.parse(localStorage.getItem(ST.login)||'null');
+
+const MISSION_STEPS=[
+    {step:1,key:'s1',icon:'📅',title:'AI Summit 일정 신청',desc:'참여 일정 신청 (~7/29)'},
+    {step:2,key:'s2',icon:'🪪',title:'CL 출석체크',desc:'이름표 인증샷 필수! 현장 피드 공유'},
+    {step:3,key:'s3',icon:'🌅',title:'Session 공유 (오전)',desc:'오전 세션 중 가장 인상 깊은 점'},
+    {step:4,key:'s4',icon:'🌆',title:'Session 공유 (오후)',desc:'오후 세션 중 가장 인상 깊은 점'},
+    {step:5,key:'s5',icon:'📸',title:'우리 그룹 단체사진',desc:'그룹장이 올리면 팀원 전체 완료'},
+    {step:6,key:'s6',icon:'🤝',title:'타 그룹 CL과 인증샷',desc:'우리팀이 아닌 CL과 함께!'},
+];
+
+function memberKey(no,name){return no+'_'+name;}
+function findGroup(no){for(const g in orgData){const f=orgData[g].groups.find(x=>x.no===no);if(f)return f;}return null;}
+function findGridByGroupNo(no){for(const g in orgData){if(orgData[g].groups.find(x=>x.no===no))return g;}return null;}
+function escapeHtml(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function nowTime(){const d=new Date();return `${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;}
+
+/* ===== 이미지 축소 ===== */
+function compressImage(file,cb){
+    const reader=new FileReader();
+    reader.onload=e=>{
+        const img=new Image();
+        img.onload=()=>{
+            const MAX=1200;let w=img.width,h=img.height;
+            if(w>MAX){h=Math.round(h*MAX/w);w=MAX;}
+            const cv=document.createElement('canvas');cv.width=w;cv.height=h;
+            cv.getContext('2d').drawImage(img,0,0,w,h);
+            cb(cv.toDataURL('image/jpeg',0.8));
+        };
+        img.onerror=()=>cb(e.target.result);
+        img.src=e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+function readImage(inputId,cb){
+    const inp=document.getElementById(inputId);
+    if(inp.files.length>0)compressImage(inp.files[0],cb);
+    else cb(null);
+}
+function bindPreview(inputId,previewId){
+    const inp=document.getElementById(inputId),pv=document.getElementById(previewId);
+    pv.style.display='none';pv.src='';
+    inp.onchange=function(){if(this.files[0])compressImage(this.files[0],d=>{pv.src=d;pv.style.display='block';});};
+}
+
+/* ===== 로그인 ===== */
+function msHqChange(){const gid=document.getElementById('ms-hq').value;const sg=document.getElementById('ms-group'),sm=document.getElementById('ms-member');
+    sg.innerHTML='<option value="">그룹</option>';sm.innerHTML='<option value="">이름</option>';if(!gid)return;
+    orgData[gid].groups.forEach(g=>{const o=document.createElement('option');o.value=g.no;o.innerText=g.name;sg.appendChild(o);});}
+function msGroupChange(){const no=document.getElementById('ms-group').value;const sm=document.getElementById('ms-member');sm.innerHTML='<option value="">이름</option>';if(!no)return;
+    findGroup(no).members.forEach(m=>{const o=document.createElement('option');o.value=m.n;o.innerText=(m.l?'🏅 ':'')+m.n+(m.p?` (${m.p})`:'');sm.appendChild(o);});}
+function doLogin(){
+    const no=document.getElementById('ms-group').value,name=document.getElementById('ms-member').value;
+    if(!no||!name){alert('본부 > 그룹 > 이름을 모두 선택하세요!');return;}
+    currentUser={no,name};localStorage.setItem(ST.login,JSON.stringify(currentUser));
+    showLoginStatus();renderStampBoard();
+}
+function logout(){currentUser=null;localStorage.removeItem(ST.login);showLoginStatus();renderStampBoard();}
+function showLoginStatus(){
+    const st=document.getElementById('login-status');
+    if(currentUser){const g=findGroup(currentUser.no);const m=g.members.find(x=>x.n===currentUser.name);
+        st.classList.add('on');st.innerHTML=`✅ ${g.name} · ${m&&m.l?'🏅 ':''}${currentUser.name} 님 로그인 완료 <button class="btn-logout" onclick="logout()">다른 CL로 전환</button>`;
+        const gid=findGridByGroupNo(currentUser.no);
+        document.getElementById('ms-hq').value=gid;msHqChange();
+        document.getElementById('ms-group').value=currentUser.no;msGroupChange();
+        document.getElementById('ms-member').value=currentUser.name;
+    }else{st.classList.remove('on');st.innerHTML='';}
+}
+
+/* ===== 미션 저장 ===== */
+function missionKey(no,name){return `${no}_${name}`;}
+function groupPhotoKey(no){return `GROUP_${no}`;}
+function getUserStamps(){
+    if(!currentUser)return {};
+    const rec=Object.assign({},missionData[missionKey(currentUser.no,currentUser.name)]||{});
+    const gp=missionData[groupPhotoKey(currentUser.no)];
+    if(gp && (gp.by===currentUser.name || (gp.members||[]).includes(currentUser.name))){
+        rec.s5=rec.s5||{done:true,shared:true,img:gp.img,text:gp.text,by:gp.by};
+    }
+    return rec;
+}
+function saveUserStamp(stepKey,data){
+    const mk=missionKey(currentUser.no,currentUser.name);
+    const rec=missionData[mk]||{};rec[stepKey]=Object.assign({done:true,time:nowTime()},data);
+    missionData[mk]=rec;persist(ST.mission,missionData);
+}
+function persist(key,obj){try{localStorage.setItem(key,JSON.stringify(obj));}catch(e){alert('⚠️ 저장 공간이 가득 찼습니다.\n(사진이 너무 많거나 큼) — Firebase 연동 시 해결됩니다.');}}
+
+/* ===== 스탬프 보드 ===== */
+function renderStampBoard(){
+    const board=document.getElementById('stamp-board');
+    const locked=document.getElementById('stamp-locked'),active=document.getElementById('stamp-active');
+    if(!currentUser){board.classList.remove('unlocked');locked.style.display='block';active.style.display='none';return;}
+    board.classList.add('unlocked');locked.style.display='none';active.style.display='block';
+    const g=findGroup(currentUser.no),member=g.members.find(m=>m.n===currentUser.name),isLeader=member&&member.l;
+    document.getElementById('stamp-who').innerHTML=`${g.name} · ${isLeader?'🏅 ':''}${currentUser.name}`;
+    const stamps=getUserStamps();
+    const grid=document.getElementById('stamp-grid');grid.innerHTML='';let doneCnt=0;
+    MISSION_STEPS.forEach(s=>{
+        const done=stamps[s.key]&&stamps[s.key].done;if(done)doneCnt++;
+        const card=document.createElement('div');card.className='stamp-card'+(done?' done':'');
+        let btns='';
+        const mainLabel=done?'완료 (수정)':(s.key==='s1'?'신청':(s.key==='s2'?'출석도장':(s.key==='s5'?'단체사진 등록':(s.key==='s6'?'인증샷 등록':'공유'))));
+        btns+=`<button class="btn-stamp${done?' done':''}" onclick="openStep('${s.key}')">${mainLabel}</button>`;
+        if(s.key==='s1')btns+=`<button class="btn-stamp sub" onclick="showApplyResult()">신청 결과 보기</button>`;
+        if(s.key==='s2')btns+=`<button class="btn-stamp sub" onclick="showAttResult()">출석 결과 보기</button>`;
+        card.innerHTML=`
+            <div class="stamp-circle">${s.icon}<div class="stamp-mark">✓</div></div>
+            <div class="stamp-step-no">STEP ${s.step}</div>
+            <div class="stamp-title">${s.title}</div>
+            <div class="stamp-desc">${s.desc}</div>
+            <div class="stamp-btn-row">${btns}</div>`;
+        grid.appendChild(card);
+    });
+    document.getElementById('stamp-prog').innerText=`${doneCnt} / 6 완료`;
+    document.getElementById('stamp-bar-fill').style.width=(doneCnt/6*100)+'%';
+    document.getElementById('pandora-wrap').classList.toggle('on',doneCnt===6);
+}
+function openStep(key){
+    if(!currentUser){alert('먼저 CL 로그인을 해주세요!');return;}
+    if(key==='s1')openMsApply();
+    else if(key==='s2')openMsAtt();
+    else if(key==='s3')openMsSess('s3','🌅 STEP 3 · Session 공유 (오전)','오전 세션 중 가장 인상 깊은 점을 공유해주세요.');
+    else if(key==='s4')openMsSess('s4','🌆 STEP 4 · Session 공유 (오후)','오후 세션 중 가장 인상 깊은 점을 공유해주세요.');
+    else if(key==='s5')openMsGroup();
+    else if(key==='s6')openMsOther();
+}
+
+/* ===== STEP1 일정신청 ===== */
+let msApDay='1';
+function openMsApply(){
+    const cur=applyData[memberKey(currentUser.no,currentUser.name)];
+    msApDay=cur?(cur.d1?'1':cur.d2?'2':cur.etc?'etc':'1'):'1';
+    document.querySelectorAll('#ms-apply-modal .apply-day-btn').forEach(b=>b.classList.toggle('on',b.dataset.day===msApDay));
+    document.getElementById('ms-ap-etc-wrap').style.display=msApDay==='etc'?'block':'none';
+    document.getElementById('ms-ap-etc').value=cur&&cur.etcReason?cur.etcReason:'';
+    document.getElementById('ms-apply-modal').classList.add('open');
+}
+function msApSelDay(b){document.querySelectorAll('#ms-apply-modal .apply-day-btn').forEach(x=>x.classList.remove('on'));b.classList.add('on');msApDay=b.dataset.day;
+    document.getElementById('ms-ap-etc-wrap').style.display=msApDay==='etc'?'block':'none';}
+function closeMsApply(){document.getElementById('ms-apply-modal').classList.remove('open');}
+function saveMsApply(){
+    const key=memberKey(currentUser.no,currentUser.name);
+    const rec={d1:false,d2:false,etc:false,etcReason:''};
+    if(msApDay==='1')rec.d1=true;else if(msApDay==='2')rec.d2=true;else{rec.etc=true;rec.etcReason=document.getElementById('ms-ap-etc').value.trim();}
+    applyData[key]=rec;persist(ST.apply,applyData);
+    saveUserStamp('s1',{choice:msApDay});
+    closeMsApply();renderStampBoard();renderApplyDashboard();
+    alert('일정 신청 완료! (STEP1 도장 완료)');
+}
+function showApplyResult(){switchTab('tab-apply');renderApplyDashboard();}
+function showAttResult(){switchTab('tab-attendance');}
+
+/* ===== STEP2 출석 ===== */
+let msAtDay='d1';
+function openMsAtt(){
+    const at=(attData[currentUser.no]||{})[memberKey(currentUser.no,currentUser.name)]||{};
+    msAtDay=at.d1?'d1':at.d2?'d2':at.etc?'etc':'d1';
+    document.querySelectorAll('#ms-att-modal .apply-day-btn').forEach(b=>b.classList.toggle('on',b.dataset.day===msAtDay));
+    document.getElementById('ms-att-image').value='';
+    bindPreview('ms-att-image','ms-att-preview');
+    document.getElementById('ms-att-modal').classList.add('open');
+}
+function msAtSelDay(b){document.querySelectorAll('#ms-att-modal .apply-day-btn').forEach(x=>x.classList.remove('on'));b.classList.add('on');msAtDay=b.dataset.day;}
+function closeMsAtt(){document.getElementById('ms-att-modal').classList.remove('open');}
+function saveMsAtt(){
+    const already=(attData[currentUser.no]||{})[memberKey(currentUser.no,currentUser.name)];
+    const imgInput=document.getElementById('ms-att-image');
+    if(!already && imgInput.files.length===0){alert('이름표 인증샷은 필수입니다! 📸');return;}
+    readImage('ms-att-image',(imgData)=>{
+        const no=currentUser.no,key=memberKey(no,currentUser.name);
+        const gA=attData[no]||{};gA[key]={d1:msAtDay==='d1',d2:msAtDay==='d2',etc:msAtDay==='etc'};
+        attData[no]=gA;persist(ST.att,attData);
+        saveUserStamp('s2',{day:msAtDay});
+        if(imgData){
+            const g=findGroup(no),dayNum=msAtDay==='d1'?'1':msAtDay==='d2'?'2':'1';
+            pushFeed({author:`${g.name} · ${currentUser.name}`,day:dayNum,content:`✅ [출석 인증] ${currentUser.name} CL 현장 도착!`,img:imgData,tag:'미션 STEP2'});
+        }
+        checkMissionComplete();
+        closeMsAtt();renderStampBoard();renderAttOrg();renderFeeds();
+        alert('출석 완료! 🎉 인증샷이 현장 피드에 공유되었습니다.');
+    });
+}
+
+/* ===== STEP3/4 세션 ===== */
+let msSessKey='s3';
+function openMsSess(key,title,sub){
+    msSessKey=key;
+    document.getElementById('ms-sess-title').innerText=title;
+    document.getElementById('ms-sess-sub').innerText=sub;
+    const prev=getUserStamps()[key];
+    document.getElementById('ms-sess-text').value=prev&&prev.text?prev.text:'';
+    document.getElementById('ms-sess-image').value='';
+    bindPreview('ms-sess-image','ms-sess-preview');
+    document.getElementById('ms-sess-modal').classList.add('open');
+}
+function closeMsSess(){document.getElementById('ms-sess-modal').classList.remove('open');}
+function saveMsSess(){
+    const text=document.getElementById('ms-sess-text').value.trim();
+    const imgInput=document.getElementById('ms-sess-image');
+    const already=getUserStamps()[msSessKey];
+    if(!text){alert('가장 인상 깊은 점을 입력해주세요!');return;}
+    if(!already && imgInput.files.length===0){alert('인증샷은 필수입니다! 📸');return;}
+    readImage('ms-sess-image',(imgData)=>{
+        saveUserStamp(msSessKey,{text,img:imgData});
+        const g=findGroup(currentUser.no);
+        const label=msSessKey==='s3'?'오전 세션':'오후 세션';
+        pushFeed({author:`${g.name} · ${currentUser.name}`,day:guessUserDay(),content:`⭐ [${label} 인상 공유] ${text}`,img:imgData,tag:'미션 STEP'+(msSessKey==='s3'?3:4)});
+        checkMissionComplete();
+        closeMsSess();renderStampBoard();renderFeeds();
+        switchTab('tab-feed');
+        alert('공유 완료! 🎉 현장 피드로 이동합니다.');
+    });
+}
+function guessUserDay(){const ap=applyData[memberKey(currentUser.no,currentUser.name)];if(ap){if(ap.d1)return'1';if(ap.d2)return'2';}return'1';}
+
+/* ===== STEP5 단체사진 ===== */
+function openMsGroup(){
+    const g=findGroup(currentUser.no),member=g.members.find(m=>m.n===currentUser.name),isLeader=member&&member.l;
+    if(!isLeader){alert('그룹 단체사진은 그룹장(🏅)만 등록할 수 있습니다.\n그룹장이 등록하면 자동으로 완료 처리됩니다.');return;}
+    const box=document.getElementById('ms-group-members');box.innerHTML='';
+    const prev=missionData[groupPhotoKey(currentUser.no)];
+    g.members.forEach(m=>{
+        const checked=prev?((prev.members||[]).includes(m.n)||prev.by===m.n):true;
+        const div=document.createElement('label');div.className='mc-item';
+        div.innerHTML=`<input type="checkbox" value="${m.n}" ${checked?'checked':''} ${m.n===currentUser.name?'checked disabled':''}> ${m.l?'🏅 ':''}${m.n} <span class="mpos" style="font-size:.7rem;color:var(--mut)">${m.p||''}</span>`;
+        box.appendChild(div);
+    });
+    document.getElementById('ms-group-text').value=prev&&prev.text?prev.text:'';
+    document.getElementById('ms-group-image').value='';
+    bindPreview('ms-group-image','ms-group-preview');
+    document.getElementById('ms-group-modal').classList.add('open');
+}
+function closeMsGroup(){document.getElementById('ms-group-modal').classList.remove('open');}
+function saveMsGroup(){
+    const text=document.getElementById('ms-group-text').value.trim();
+    const imgInput=document.getElementById('ms-group-image');
+    const prev=missionData[groupPhotoKey(currentUser.no)];
+    if(!prev && imgInput.files.length===0){alert('단체사진은 필수입니다! 📸');return;}
+    const members=[...document.querySelectorAll('#ms-group-members input:checked')].map(c=>c.value);
+    readImage('ms-group-image',(imgData)=>{
+        const finalImg=imgData||(prev?prev.img:null);
+        missionData[groupPhotoKey(currentUser.no)]={done:true,img:finalImg,text,by:currentUser.name,members,time:nowTime()};
+        persist(ST.mission,missionData);
+        const g=findGroup(currentUser.no);
+        pushFeed({author:`${g.name}`,day:guessUserDay(),content:`📸 [우리 그룹 단체사진] ${g.name} 단체샷! ${text?('— '+text):''}`,img:finalImg,tag:'미션 STEP5'});
+        checkMissionComplete();
+        closeMsGroup();renderStampBoard();renderFeeds();
+        switchTab('tab-feed');
+        alert('단체사진 등록 완료! 🎉 함께한 팀원 모두 STEP5 완료 처리됩니다.');
+    });
+}
+
+/* ===== STEP6 타그룹 CL ===== */
+let moSelected=[];
+function openMsOther(){
+    moSelected=[];
+    document.getElementById('mo-hq').innerHTML='<option value="">본부</option>';
+    fillSel(document.getElementById('mo-hq'));
+    document.getElementById('mo-group').innerHTML='<option value="">그룹</option>';
+    document.getElementById('mo-members').innerHTML='<div class="live-empty">본부·그룹을 선택하면 명단이 나옵니다.</div>';
+    document.getElementById('mo-selected-cnt').innerText='함께한 CL: 0명';
+    document.getElementById('mo-selected-list').innerText='';
+    document.getElementById('ms-other-text').value='';
+    document.getElementById('ms-other-image').value='';
+    bindPreview('ms-other-image','ms-other-preview');
+    document.getElementById('ms-other-modal').classList.add('open');
+}
+function moHqChange(){const gid=document.getElementById('mo-hq').value;const sg=document.getElementById('mo-group');
+    sg.innerHTML='<option value="">그룹</option>';document.getElementById('mo-members').innerHTML='<div class="live-empty">그룹을 선택하세요.</div>';if(!gid)return;
+    orgData[gid].groups.forEach(g=>{const o=document.createElement('option');o.value=g.no;o.innerText=g.name;sg.appendChild(o);});}
+function moGroupChange(){const no=document.getElementById('mo-group').value;const box=document.getElementById('mo-members');box.innerHTML='';if(!no)return;
+    if(no===currentUser.no){box.innerHTML='<div class="live-empty">본인 그룹은 선택할 수 없습니다. (타 그룹 CL을 선택하세요)</div>';return;}
+    const g=findGroup(no);
+    g.members.forEach(m=>{
+        const checked=moSelected.some(x=>x.no===no&&x.name===m.n);
+        const div=document.createElement('label');div.className='mc-item';
+        div.innerHTML=`<input type="checkbox" ${checked?'checked':''} onchange="moToggle('${no}','${m.n}',this)"> ${m.l?'🏅 ':''}${m.n} <span class="mpos" style="font-size:.7rem;color:var(--mut)">${g.name} · ${m.p||''}</span>`;
+        box.appendChild(div);
+    });
+}
+function moToggle(no,name,el){
+    if(el.checked)moSelected.push({no,name});
+    else moSelected=moSelected.filter(x=>!(x.no===no&&x.name===name));
+    document.getElementById('mo-selected-cnt').innerText=`함께한 CL: ${moSelected.length}명`;
+    const list=moSelected.map(x=>{const g=findGroup(x.no);return `${g.name} ${x.name}`;}).join(', ');
+    document.getElementById('mo-selected-list').innerText=list;
+}
+function closeMsOther(){document.getElementById('ms-other-modal').classList.remove('open');}
+function saveMsOther(){
+    const text=document.getElementById('ms-other-text').value.trim();
+    const imgInput=document.getElementById('ms-other-image');
+    const already=getUserStamps()['s6'];
+    if(moSelected.length===0){alert('함께한 타 그룹 CL을 1명 이상 선택하세요!');return;}
+    if(!already && imgInput.files.length===0){alert('인증샷은 필수입니다! 📸');return;}
+    readImage('ms-other-image',(imgData)=>{
+        const names=moSelected.map(x=>{const g=findGroup(x.no);return `${g.name} ${x.name}`;}).join(', ');
+        saveUserStamp('s6',{text,img:imgData,withCL:moSelected});
+        const g=findGroup(currentUser.no);
+        pushFeed({author:`${g.name} · ${currentUser.name}`,day:guessUserDay(),content:`🤝 [타 그룹 CL 인증샷] ${currentUser.name} + ${names} ${text?('— '+text):''}`,img:imgData,tag:'미션 STEP6'});
+        checkMissionComplete();
+        closeMsOther();renderStampBoard();renderFeeds();
+        switchTab('tab-feed');
+        alert('인증샷 등록 완료! 🎉 현장 피드로 이동합니다.');
+    });
+}
+
+/* ===== 미션 완료 & 판도라 ===== */
+function isAllDone(){const stamps=getUserStamps();return MISSION_STEPS.every(s=>stamps[s.key]&&stamps[s.key].done);}
+function checkMissionComplete(){
+    if(!isAllDone())return;
+    const flagKey=`DONEFLAG_${currentUser.no}_${currentUser.name}`;
+    if(missionData[flagKey])return;
+    missionData[flagKey]=true;persist(ST.mission,missionData);
+    const g=findGroup(currentUser.no);
+    pushFeed({author:`${g.name}`,day:guessUserDay(),content:`🎉 [미션 완료] ${g.name} · ${currentUser.name} CL 님이 6가지 미션을 모두 완료했습니다! 축하합니다! 🏆`,mission:true,tag:'MISSION CLEAR'});
+}
+function openPandora(){
+    const g=findGroup(currentUser.no);
+    document.getElementById('pandora-sub').innerHTML=`${g.name} · <b style="color:var(--pri)">${currentUser.name}</b> CL 님,<br>현장을 빛내주셔서 진심으로 감사합니다.<br>AI로 여는 건설기계의 미래, 함께 만들어가요! 🚜🤖`;
+    document.getElementById('pandora-modal').classList.add('open');
+    launchConfetti();
+}
+function launchConfetti(){
+    const colors=['#f59e0b','#ef4444','#3b82f6','#10b981','#8b5cf6','#ec4899'];
+    for(let i=0;i<60;i++){
+        const c=document.createElement('div');c.className='confetti';
+        c.style.left=Math.random()*100+'vw';c.style.top='-20px';
+        c.style.background=colors[Math.floor(Math.random()*colors.length)];
+        c.style.borderRadius=Math.random()>.5?'50%':'2px';
+        document.body.appendChild(c);
+        const dur=2000+Math.random()*2000;
+        c.animate([{transform:'translateY(0) rotate(0)',opacity:1},{transform:`translateY(100vh) rotate(${Math.random()*720}deg)`,opacity:.2}],{duration:dur,easing:'ease-in'});
+        setTimeout(()=>c.remove(),dur);
+    }
+}
+function pushFeed(o){const f=loadFeeds();f.push(Object.assign({id:Date.now()+Math.floor(Math.random()*1000),time:nowTime(),img:null,likes:0,replies:[]},o));saveFeeds(f);}
+
+/* 출석 (관리자 탭) */
+function renderAttOrg(){
+    const wrap=document.getElementById('att-org');wrap.innerHTML='';let tg=0;
+    for(const gridId in orgData){
+        const sec=document.createElement('div');sec.className='hq-block';
+        sec.innerHTML=`<div class="hq-label">${orgData[gridId].hq}</div><div class="cl-grid"></div>`;
+        const grid=sec.querySelector('.cl-grid');
+        orgData[gridId].groups.forEach(g=>{tg++;const total=g.members.length,present=countGroupPresent(g.no);
+            const c=document.createElement('div');c.className='cl-card'+(present>0?' checked':'');
+            c.innerHTML=`<div class="cl-no">${g.no}</div><div class="cl-name">${g.name} <span class="cl-count-badge">(${present}/${total})</span></div>
+                <button class="btn-cl-check${present>0?' done':''}" onclick="openAttModal('${g.no}')">${present>0?'출석 확인 ✓':'출석 확인'}</button>`;
+            grid.appendChild(c);});
+        wrap.appendChild(sec);
+    }
+    document.getElementById('total-groups').innerText=tg;updateSummary();
+}
+function countGroupPresent(no){const a=attData[no]||{};let c=0;for(const k in a){if(a[k].d1||a[k].d2||a[k].etc)c++;}return c;}
+function openAttModal(no){currentModalGroupNo=no;const g=findGroup(no);
+    document.getElementById('modal-group-name').innerText=`${g.name} 출석 현황`;
+    const box=document.getElementById('modal-members');box.innerHTML='';const gA=attData[no]||{};
+    const d1=settings['att-d1'],d2=settings['att-d2'];
+    g.members.forEach(m=>{const key=memberKey(no,m.n),a=gA[key]||{};
+        const row=document.createElement('div');row.className='member-row';
+        row.innerHTML=`<span class="mname">${m.l?'🏅 ':''}${m.n} <span class="mpos">${m.p||''}</span></span>
+            <div class="day-toggle">
+                <button class="chk-btn ${a.d1?'on':''}" data-key="${key}" data-day="d1" ${d1?'':'disabled'} onclick="toggleChk(this)">1일차</button>
+                <button class="chk-btn ${a.d2?'on':''}" data-key="${key}" data-day="d2" ${d2?'':'disabled'} onclick="toggleChk(this)">2일차</button>
+                <button class="chk-btn ${a.etc?'on':''}" data-key="${key}" data-day="etc" onclick="toggleChk(this)">기타</button>
+            </div>`;
+        box.appendChild(row);});
+    document.getElementById('att-modal').classList.add('open');
+}
+function toggleChk(b){if(b.hasAttribute('disabled')){alert('해당 일차 체크가 비활성화되어 있습니다.');return;}
+    const key=b.dataset.key;const wasOn=b.classList.contains('on');
+    document.querySelectorAll(`#modal-members .chk-btn[data-key="${key}"]`).forEach(x=>x.classList.remove('on'));
+    if(!wasOn)b.classList.add('on');
+}
+function saveAttModal(){const no=currentModalGroupNo,gA={};
+    document.querySelectorAll('#modal-members .chk-btn').forEach(b=>{const k=b.dataset.key,d=b.dataset.day;
+        if(!gA[k])gA[k]={d1:false,d2:false,etc:false};if(b.classList.contains('on'))gA[k][d]=true;});
+    for(const k in gA){const a=gA[k];if(!a.d1&&!a.d2&&!a.etc)delete gA[k];}
+    if(Object.keys(gA).length)attData[no]=gA;else delete attData[no];
+    persist(ST.att,attData);closeAttModal();renderAttOrg();
+}
+function closeAttModal(){document.getElementById('att-modal').classList.remove('open');}
+function updateSummary(){let gr=0,pe=0;for(const no in attData){const c=countGroupPresent(no);if(c>0){gr++;pe+=c;}}
+    document.getElementById('checked-groups').innerText=gr;document.getElementById('total-people').innerText=pe;}
+function openLiveModal(){const cols={d1:[],d2:[]};
+    for(const gridId in orgData)orgData[gridId].groups.forEach(g=>{const gA=attData[g.no]||{};
+        g.members.forEach(m=>{const k=memberKey(g.no,m.n);if(gA[k]){if(gA[k].d1)cols.d1.push({g:g.name,n:m.n,p:m.p,l:m.l});if(gA[k].d2)cols.d2.push({g:g.name,n:m.n,p:m.p,l:m.l});}});});
+    fillGrouped('live-d1-body','live-d1-cnt',cols.d1);fillGrouped('live-d2-body','live-d2-cnt',cols.d2);
+    document.getElementById('live-modal').classList.add('open');}
+function closeLiveModal(){document.getElementById('live-modal').classList.remove('open');}
+function fillGrouped(bodyId,cntId,list){const body=document.getElementById(bodyId);document.getElementById(cntId).innerText=list.length+'명';body.innerHTML='';
+    if(!list.length){body.innerHTML='<div class="live-empty">아직 참여 인원이 없습니다.</div>';return;}
+    const byG={};list.forEach(x=>{(byG[x.g]=byG[x.g]||[]).push(x);});
+    Object.keys(byG).forEach(gn=>{const gd=document.createElement('div');gd.className='live-group';
+        let html=`<div class="live-group-title">${gn}</div>`;
+        byG[gn].forEach(x=>html+=`<div class="live-item">${x.l?'🏅 ':''}${x.n} <span class="mpos">${x.p||''}</span></div>`);
+        gd.innerHTML=html;body.appendChild(gd);});}
+
+/* 하트 */
+function clickHeart(btn){const h=JSON.parse(localStorage.getItem(ST.heart)||'{}');const id=btn.dataset.hid;const s=btn.querySelector('.heart-count');let c=parseInt(s.innerText);
+    if(btn.classList.contains('active')){btn.classList.remove('active');c--;delete h[id];}
+    else{btn.classList.add('active');c++;h[id]=1;}
+    s.innerText=c;localStorage.setItem(ST.heart,JSON.stringify(h));}
+function restoreHearts(){const h=JSON.parse(localStorage.getItem(ST.heart)||'{}');
+    document.querySelectorAll('.btn-heart').forEach(b=>{if(h[b.dataset.hid]){b.classList.add('active');const s=b.querySelector('.heart-count');s.innerText=parseInt(s.innerText)+1;}});}
+
+/* 관심 요약 */
+function sumSelDay(b){document.querySelectorAll('#summary-modal .apply-day-btn').forEach(x=>x.classList.remove('on'));b.classList.add('on');sumDay=b.dataset.day;renderSummary();}
+function renderSummary(){
+    const box=document.getElementById('summary-content');box.innerHTML='';
+    [['conference','🎤 Conference'],['expo','🏢 Expo']].forEach(([cat,label])=>{
+        const col=document.createElement('div');
+        const cards=[...document.querySelectorAll(`.btn-heart[data-cat="${cat}"][data-day="${sumDay}"]`)]
+            .map(b=>({title:b.dataset.title,c:parseInt(b.querySelector('.heart-count').innerText)}))
+            .filter(x=>x.c>0).sort((a,b)=>b.c-a.c).slice(0,5);
+        let html=`<div class="top5-col-title">${label}</div>`;
+        if(!cards.length)html+='<div class="live-empty">아직 반응이 없습니다.</div>';
+        else cards.forEach((x,i)=>html+=`<div class="top5-item"><span class="top5-rank">${i+1}</span><span class="top5-t">${escapeHtml(x.title)}</span><span class="top5-c">❤️ ${x.c}</span></div>`);
+        col.innerHTML=html;box.appendChild(col);
+    });
+}
+function openSummary(){sumDay='1';document.querySelectorAll('#summary-modal .apply-day-btn').forEach(x=>x.classList.toggle('on',x.dataset.day==='1'));renderSummary();document.getElementById('summary-modal').classList.add('open');}
+
+/* 일정 신청(관리자 탭 데이터) */
+function fillSel(sel){for(const g in orgData){const o=document.createElement('option');o.value=g;o.innerText=orgData[g].hq;sel.appendChild(o);}}
+function collectApply(){
+    const cols={d1:[],d2:[],etc:[],none:[]};
+    for(const gridId in orgData)orgData[gridId].groups.forEach(g=>{g.members.forEach(m=>{
+        const key=memberKey(g.no,m.n),r=applyData[key];
+        const base={g:g.name,n:m.n,p:m.p,l:m.l,no:g.no};
+        if(!r||(!r.d1&&!r.d2&&!r.etc)){cols.none.push(base);return;}
+        if(r.d1)cols.d1.push(base);
+        if(r.d2)cols.d2.push(base);
+        if(r.etc)cols.etc.push(Object.assign({reason:r.etcReason},base));
+    });});
+    return cols;
+}
+function renderApplyDashboard(){
+    const wrap=document.getElementById('apply-dashboard');if(!wrap)return;wrap.innerHTML='';
+    const cols=collectApply();
+    [['d1','d1','1일차 (8/19)'],['d2','d2','2일차 (8/20)']].forEach(([k,cls,label])=>{
+        const col=document.createElement('div');col.className='live-col';
+        col.innerHTML=`<div class="live-col-head ${cls}">${label}<span class="cnt">${cols[k].length}명</span></div><div class="live-col-body"></div>`;
+        appendGrouped(col.querySelector('.live-col-body'),cols[k],false);
+        wrap.appendChild(col);
+    });
+    const sub=document.createElement('div');sub.style.gridColumn='1/-1';
+    sub.innerHTML=`
+        <div class="dash-sub-toggle">
+            <button class="dash-sub-btn" onclick="toggleDashSub('none',this)">🕓 미신청 (${cols.none.length}명)</button>
+            <button class="dash-sub-btn" onclick="toggleDashSub('etc',this)">📄 기타 (${cols.etc.length}명)</button>
+        </div>
+        <div class="dash-sub-panel" id="dash-none"></div>
+        <div class="dash-sub-panel" id="dash-etc"></div>`;
+    wrap.appendChild(sub);
+    appendGrouped(document.getElementById('dash-none'),cols.none,false,true);
+    appendGrouped(document.getElementById('dash-etc'),cols.etc,true,true);
+}
+function toggleDashSub(key,btn){const p=document.getElementById('dash-'+key);const open=p.classList.contains('open');
+    document.querySelectorAll('.dash-sub-panel').forEach(x=>x.classList.remove('open'));
+    document.querySelectorAll('.dash-sub-btn').forEach(x=>x.classList.remove('on'));
+    if(!open){p.classList.add('open');btn.classList.add('on');}}
+function appendGrouped(body,list,isEtc,plain){
+    body.innerHTML='';
+    if(!list.length){body.innerHTML='<div class="live-empty">해당 인원이 없습니다.</div>';return;}
+    const byG={};list.forEach(x=>{(byG[x.g]=byG[x.g]||[]).push(x);});
+    Object.keys(byG).forEach(gn=>{const gd=document.createElement('div');gd.className='live-group';
+        let html=`<div class="live-group-title">${gn}</div>`;
+        byG[gn].forEach(x=>{
+            const reasonTxt=(isEtc&&isAdmin&&x.reason)?`<br><span class="mpos">↳ 사유: ${escapeHtml(x.reason)}</span>`:'';
+            html+=`<div class="live-item">${x.l?'🏅 ':''}${x.n} <span class="mpos">${x.p||''}</span>${reasonTxt}</div>`;
+        });
+        gd.innerHTML=html;body.appendChild(gd);});
+}
+
+/* 피드 */
+function onHqChange(){const gid=document.getElementById('sel-hq').value;const sg=document.getElementById('sel-group'),sm=document.getElementById('sel-member');
+    sg.innerHTML='<option value="">그룹 선택</option>';sm.innerHTML='<option value="">이름 선택</option>';
+    if(gid==='HRD'){sg.disabled=true;sm.disabled=true;return;}
+    sg.disabled=false;sm.disabled=false;if(!gid)return;
+    orgData[gid].groups.forEach(g=>{const o=document.createElement('option');o.value=g.no;o.innerText=g.name;sg.appendChild(o);});}
+function onGroupChange(){const no=document.getElementById('sel-group').value;const sm=document.getElementById('sel-member');sm.innerHTML='<option value="">이름 선택</option>';if(!no)return;
+    findGroup(no).members.forEach(m=>{const o=document.createElement('option');o.value=m.n;o.innerText=(m.l?'🏅 ':'')+m.n+(m.p?` (${m.p})`:'');sm.appendChild(o);});}
+function selFeedDay(b){if(b.disabled)return;document.querySelectorAll('.feed-day-btn').forEach(x=>x.classList.remove('on'));b.classList.add('on');feedDay=b.dataset.day;}
+function applyFeedDaySettings(){document.querySelectorAll('.feed-day-btn').forEach(b=>{const on=settings['feed-d'+b.dataset.day];b.disabled=!on;if(!on)b.classList.remove('on');});
+    if(!document.querySelector('.feed-day-btn.on')){const f=document.querySelector('.feed-day-btn:not([disabled])');if(f){f.classList.add('on');feedDay=f.dataset.day;}}}
+function getDefaultFeeds(){return [{id:1,author:'제품시험 · 이민혁',day:'1',content:'NASA 세션 위성 협력 이야기 소름..',time:'방금 전',img:null,likes:0,replies:[]}];}
+function loadFeeds(){const s=localStorage.getItem(ST.feed);return s?JSON.parse(s):getDefaultFeeds();}
+function saveFeeds(f){try{localStorage.setItem(ST.feed,JSON.stringify(f));}catch(e){alert('⚠️ 저장 공간이 가득 찼습니다. (사진이 너무 많거나 큼)\nFirebase 연동 시 해결됩니다.');}}
+function renderFeeds(){const feeds=loadFeeds();const list=document.getElementById('feed-list');list.innerHTML='';
+    feeds.slice().reverse().forEach(f=>{const badge=f.day?`<span class="feed-day-badge d${f.day}">${f.day}일차</span>`:'';
+        const tagB=f.tag?`<span class="feed-tag-badge">${escapeHtml(f.tag)}</span>`:'';
+        const rep=(f.replies||[]).map(r=>`<div class="reply-item"><span class="rauthor">${escapeHtml(r.author)}</span> ${escapeHtml(r.text)}</div>`).join('');
+        const it=document.createElement('div');it.className='feed-item-card'+(f.mission?' mission':'');
+        it.innerHTML=`<button class="btn-feed-del" onclick="deleteFeed(${f.id})">✕</button>
+            <strong>${escapeHtml(f.author)}</strong>${badge}${tagB}
+            <p style="margin:5px 0 0;color:#e2e8f0;">${escapeHtml(f.content)}</p>${f.img?`<img src="${f.img}">`:''}
+            <span style="font-size:.75rem;color:#64748b;">${f.time}</span>
+            <div class="feed-actions"><button class="feed-act-btn" onclick="toggleLike(${f.id},this)">❤️ 좋아요 <span>${f.likes||0}</span></button>
+            <button class="feed-act-btn" onclick="toggleReply(${f.id})">💬 답글 ${(f.replies||[]).length}</button></div>
+            <div class="reply-box" id="reply-${f.id}" style="display:none;">${rep}
+            <div class="reply-input-row"><input id="reply-input-${f.id}" placeholder="답글..." maxlength="150"><button onclick="addReply(${f.id})">등록</button></div></div>`;
+        list.appendChild(it);});}
+function toggleLike(id,btn){const f=loadFeeds(),t=f.find(x=>x.id===id);if(!t)return;t.likes=(t.likes||0)+1;saveFeeds(f);btn.classList.add('liked');btn.querySelector('span').innerText=t.likes;}
+function toggleReply(id){const b=document.getElementById('reply-'+id);b.style.display=b.style.display==='none'?'block':'none';}
+function addReply(id){const inp=document.getElementById('reply-input-'+id),t=inp.value.trim();if(!t){alert('답글 입력');return;}
+    const f=loadFeeds(),tg=f.find(x=>x.id===id);if(!tg)return;if(!tg.replies)tg.replies=[];tg.replies.push({author:currentUser?currentUser.name:'익명',text:t});saveFeeds(f);renderFeeds();setTimeout(()=>document.getElementById('reply-'+id).style.display='block',0);}
+function addFeed(){const gid=document.getElementById('sel-hq').value,content=document.getElementById('feed-content').value.trim(),img=document.getElementById('feed-image');
+    if(!settings['feed-d'+feedDay]){alert('해당 일차 피드 작성이 비활성화되어 있습니다.');return;}
+    let author;
+    if(gid==='HRD'){author='HRD팀';}
+    else{const no=document.getElementById('sel-group').value,member=document.getElementById('sel-member').value;
+        if(!gid||!no||!member){alert('본부>그룹>이름을 선택하세요! (또는 HRD팀 선택)');return;}
+        author=`${findGroup(no).name} · ${member}`;}
+    if(!content&&img.files.length===0){alert('내용/사진을 입력하세요!');return;}
+    const fin=(d)=>{const f=loadFeeds();f.push({id:Date.now(),author,day:feedDay,content,time:nowTime(),img:d,likes:0,replies:[]});saveFeeds(f);
+        document.getElementById('feed-content').value='';img.value='';renderFeeds();};
+    if(img.files.length>0)compressImage(img.files[0],fin);else fin(null);}
+function deleteFeed(id){if(!confirm('삭제할까요?'))return;saveFeeds(loadFeeds().filter(f=>f.id!==id));renderFeeds();}
+
+/* 관리자 */
+function requestAdmin(){if(isAdmin){openSettings();return;}document.getElementById('pw-input').value='';document.getElementById('pw-modal').classList.add('open');setTimeout(()=>document.getElementById('pw-input').focus(),50);}
+function checkPw(){if(document.getElementById('pw-input').value===ADMIN_PW){isAdmin=true;document.getElementById('admin-badge').classList.add('on');document.getElementById('btn-normal-mode').classList.add('on');document.getElementById('pw-modal').classList.remove('open');applyTabVisibility();openSettings();}
+    else{alert('비밀번호가 올바르지 않습니다.');}}
+function exitAdmin(){isAdmin=false;document.getElementById('admin-badge').classList.remove('on');document.getElementById('btn-normal-mode').classList.remove('on');closeSettings();applyTabVisibility();alert('일반모드로 전환되었습니다.');}
+
+function applyTabVisibility(){
+    document.querySelectorAll('#nav-group .nav-tab-btn').forEach(b=>{
+        const on=settings[b.dataset.tab];
+        if(isAdmin){b.style.display='';b.classList.toggle('off',!on);}
+        else{b.style.display=on?'':'none';b.classList.remove('off');
+            if(!on&&b.classList.contains('active')){const first=[...document.querySelectorAll('#nav-group .nav-tab-btn')].find(x=>settings[x.dataset.tab]);if(first)switchTab(first.dataset.tab,first);}}
+    });
+}
+function setToggle(input){settings[input.dataset.set]=input.checked;localStorage.setItem(ST.set,JSON.stringify(settings));applyTabVisibility();applyFeedDaySettings();}
+function openSettings(){document.querySelectorAll('#settings-modal input[type=checkbox]').forEach(c=>c.checked=!!settings[c.dataset.set]);renderRoster();document.getElementById('settings-modal').classList.add('open');}
+function closeSettings(){document.getElementById('settings-modal').classList.remove('open');}
+function buildRosterRows(){
+    const rows=[];const feeds=loadFeeds();
+    for(const gridId in orgData)orgData[gridId].groups.forEach(g=>g.members.forEach(m=>{
+        const key=memberKey(g.no,m.n);const ap=applyData[key]||{},at=(attData[g.no]||{})[key]||{};
+        const ms=missionData[missionKey(g.no,m.n)]||{};
+        const gp=missionData[groupPhotoKey(g.no)];
+        const s5done=(ms.s5&&ms.s5.done)||(gp&&(gp.by===m.n||(gp.members||[]).includes(m.n)));
+        let mdone=0;['s1','s2','s3','s4','s6'].forEach(k=>{if(ms[k]&&ms[k].done)mdone++;});if(s5done)mdone++;
+        rows.push({group:g.name,name:m.n,pos:m.p||'',lead:m.l,
+            apply:[ap.d1?'1':'',ap.d2?'2':'',ap.etc?'기타':''].filter(Boolean).join('/')||'-',
+            att:[at.d1?'1':'',at.d2?'2':'',at.etc?'기타':''].filter(Boolean).join('/')||'-',
+            mission:mdone+'/6',
+            feed:feeds.filter(f=>f.author===`${g.name} · ${m.n}`).length,
+            reason:ap.etc?(ap.etcReason||''):'',key});
+    }));
+    return rows;
+}
+function sortRoster(key){if(rosterSort.key===key)rosterSort.asc=!rosterSort.asc;else{rosterSort.key=key;rosterSort.asc=true;}renderRoster();}
+function renderRoster(){
+    const body=document.getElementById('roster-body');body.innerHTML='';
+    let rows=buildRosterRows();
+    const k=rosterSort.key,dir=rosterSort.asc?1:-1;
+    rows.sort((a,b)=>{let va=a[k],vb=b[k];if(typeof va==='number')return(va-vb)*dir;return String(va).localeCompare(String(vb),'ko')*dir;});
+    rows.forEach(r=>{const tr=document.createElement('tr');
+        tr.innerHTML=`<td>${r.group}</td><td>${r.lead?'🏅':''}${r.name}</td><td>${r.pos}</td>
+            <td><span class="roster-tag ${r.apply!=='-'?'rt-y':'rt-n'}">${r.apply}</span></td>
+            <td><span class="roster-tag ${r.att!=='-'?'rt-y':'rt-n'}">${r.att}</span></td>
+            <td><span class="roster-tag ${r.mission!=='0/6'?'rt-y':'rt-n'}">${r.mission}</span></td>
+            <td>${r.feed}</td>
+            <td style="max-width:160px;font-size:.75rem;color:var(--mut);">${r.reason?escapeHtml(r.reason):'-'}</td>
+            <td><input value="${escapeHtml(memoData[r.key]||'')}" onchange="saveMemo('${r.key}',this.value)" placeholder="메모"></td>`;
+        body.appendChild(tr);});
+}
+function saveMemo(key,v){memoData[key]=v;localStorage.setItem(ST.memo,JSON.stringify(memoData));}
+function resetData(type){
+    const map={apply:'일정신청',att:'출석',heart:'하트',feed:'피드',mission:'미션',all:'전체'};
+    if(!confirm(`${map[type]} 데이터를 초기화할까요?`))return;
+    if(type==='apply'||type==='all'){applyData={};localStorage.removeItem(ST.apply);}
+    if(type==='att'||type==='all'){attData={};localStorage.removeItem(ST.att);}
+    if(type==='heart'||type==='all'){localStorage.removeItem(ST.heart);document.querySelectorAll('.btn-heart').forEach(b=>{b.classList.remove('active');b.querySelector('.heart-count').innerText='0';});}
+    if(type==='feed'||type==='all'){localStorage.removeItem(ST.feed);}
+    if(type==='mission'||type==='all'){missionData={};localStorage.removeItem(ST.mission);}
+    if(type==='all'){memoData={};localStorage.removeItem(ST.memo);}
+    renderAttOrg();renderApplyDashboard();renderFeeds();renderRoster();renderStampBoard();alert('초기화 완료!');
+}
+
+/* 공통 */
+function switchTab(id,btn){
+    if(settings[id]===false&&!isAdmin&&id!=='tab-apply'&&id!=='tab-attendance'){return;}
+    document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+    document.querySelectorAll('#nav-group .nav-tab-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    if(btn)btn.classList.add('active');else{const t=document.querySelector(`[data-tab="${id}"]`);if(t&&(settings[id]!==false||isAdmin))t.classList.add('active');}
+    if(id==='tab-apply')renderApplyDashboard();
+    if(id==='tab-invite'){showLoginStatus();renderStampBoard();}
+}
+function switchDate(btn,day){document.querySelectorAll('.date-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+    document.querySelectorAll('#tab-agenda .day-content').forEach(el=>el.classList.toggle('active',el.dataset.day==day));}
+function switchSub(name,btn){document.querySelectorAll('.subtab-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+    document.querySelectorAll('.subtab-content').forEach(c=>c.classList.remove('active'));document.getElementById('sub-'+name).classList.add('active');}
+
+['att-modal','live-modal','summary-modal','settings-modal','pw-modal','ms-apply-modal','ms-att-modal','ms-sess-modal','ms-group-modal','ms-other-modal','pandora-modal'].forEach(id=>{
+    document.getElementById(id).addEventListener('click',e=>{if(e.target.id===id)document.getElementById(id).classList.remove('open');});});
+
+/* 초기화 */
+fillSel(document.getElementById('sel-hq'));
+fillSel(document.getElementById('ms-hq'));
+(function(){const o=document.createElement('option');o.value='HRD';o.innerText='HRD팀';document.getElementById('sel-hq').appendChild(o);})();
+renderAttOrg();restoreHearts();renderFeeds();renderApplyDashboard();applyTabVisibility();applyFeedDaySettings();
+showLoginStatus();renderStampBoard();
+</script>
+</body>
+</html>
