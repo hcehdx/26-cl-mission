@@ -1205,6 +1205,40 @@ body{background-attachment:fixed;}
   .cl-id-prog{font-size:.8rem!important;}
 }
 
+
+/* ===== v38 : 판도라 안내 팝업 & 모바일 헤더 컴팩트 ===== */
+.goal-modal-box{text-align:center;position:relative;overflow:hidden;max-width:340px;
+  background:linear-gradient(160deg,#1a2338,#0b1020);border:1px solid rgba(245,158,11,.4);}
+.goal-glow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:260px;height:240px;pointer-events:none;
+  background:radial-gradient(circle,rgba(245,158,11,.35),transparent 65%);filter:blur(8px);animation:twinkle 2.8s ease-in-out infinite alternate;}
+.goal-mascot{position:relative;width:150px;display:block;margin:4px auto 2px;animation:bob 3s ease-in-out infinite;
+  filter:drop-shadow(0 12px 22px rgba(0,0,0,.5));}
+.goal-q{position:relative;font-size:1.6rem;font-weight:900;color:#fcd34d;margin-bottom:6px;}
+.goal-msg{position:relative;font-size:1.05rem;font-weight:800;line-height:1.6;margin-bottom:8px;}
+.goal-sub{position:relative;color:#94a3b8;font-size:.82rem;margin-bottom:4px;}
+.jn-goal{cursor:pointer;}
+.jn-goal .g-mark{transition:transform .2s,box-shadow .2s;}
+.jn-goal:active .g-mark{transform:scale(.94);}
+
+/* ---- 모바일 헤더 : 한 줄로 압축 ---- */
+@media(max-width:600px){
+  .dashboard-header{flex-wrap:nowrap!important;padding:8px 10px!important;gap:8px!important;align-items:center;}
+  .brand-zone{gap:8px!important;min-width:0;flex:1;}
+  .badge-main{padding:4px 7px!important;font-size:.6rem!important;border-radius:6px;flex-shrink:0;}
+  .title-main{font-size:.82rem!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .title-sub{font-size:0!important;margin-top:1px!important;line-height:1;}
+  .sync-chip{font-size:.58rem!important;margin-left:0!important;padding:2px 6px!important;}
+  .nav-menu-group{flex-shrink:0;gap:5px!important;}
+  .user-chip{padding:5px 9px!important;font-size:.68rem!important;max-width:92px;overflow:hidden;white-space:nowrap;}
+  .nav-gear{width:32px!important;height:32px!important;font-size:1rem!important;}
+  .btn-normal-mode{padding:6px 8px!important;font-size:.68rem!important;}
+  .container{padding-top:10px!important;}
+  .invite-hero{padding:18px 14px!important;border-radius:18px;}
+  .invite-hero .kicker{font-size:.62rem;letter-spacing:1px;}
+  .invite-hero h1{font-size:1.05rem!important;margin:6px 0;}
+  .invite-hero p{font-size:.8rem;}
+}
+
 </style>
 </head>
 <body>
@@ -1648,6 +1682,14 @@ body{background-attachment:fixed;}
 </div></div>
 
 <!-- 설정 모달 -->
+<div class="modal-overlay" id="goal-modal"><div class="modal-box goal-modal-box">
+    <div class="goal-glow"></div>
+    <img id="goal-mascot" class="goal-mascot" alt="mascot">
+    <div class="goal-q">?</div>
+    <div class="goal-msg">미션을 <b style="color:var(--pri)">모두 완수</b>해야<br>판도라의 상자가 열려요!</div>
+    <div class="goal-sub">6가지 미션을 완료하면 무엇이 들어있을까요? 🎁</div>
+    <div class="modal-actions"><button class="btn-save" onclick="closeGoalInfo()">확인</button></div>
+</div></div>
 <div class="modal-overlay" id="hrd-pw-modal"><div class="modal-box pw-box">
     <h3>🔐 HRD팀 계정 확인</h3>
     <div class="modal-sub">HRD팀(최진솔 책임매니저) 계정은 비밀번호가 필요합니다.</div>
@@ -2067,7 +2109,8 @@ function renderStampBoard(){
     });
 
     const goal=document.createElement('div');goal.className='jn-goal';
-    goal.innerHTML=doneCnt===6?'<span class="g-ic big">🎁</span>6가지 미션을 모두 완료하여,<br>판도라의 상자가 열렸습니다.':'<span class="g-mark">?</span>6개 미션 완료 시 판도라 상자 오픈';
+    if(doneCnt===6){goal.innerHTML='<span class="g-ic big">🎁</span>6가지 미션을 모두 완료하여,<br>판도라의 상자가 열렸습니다.';goal.onclick=null;goal.style.cursor='default';}
+    else{goal.innerHTML='<span class="g-mark">?</span>6개 미션 완료 시 판도라 상자 오픈';goal.onclick=openGoalInfo;goal.style.cursor='pointer';}
     list.appendChild(goal);
 
     /* 굴착기 위치 : 아직 완료하지 않은 첫 지점(프로그램 포함) */
@@ -2771,7 +2814,7 @@ function switchDate(btn,day){document.querySelectorAll('.date-btn').forEach(b=>b
 function switchSub(name,btn){document.querySelectorAll('.subtab-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
     document.querySelectorAll('.subtab-content').forEach(c=>c.classList.remove('active'));document.getElementById('sub-'+name).classList.add('active');}
 
-['att-modal','live-modal','summary-modal','settings-modal','pw-modal','logout-modal','spot-modal','hrd-pw-modal','ms-apply-modal','ms-att-modal','ms-sess-modal','ms-group-modal','ms-other-modal','pandora-modal'].forEach(id=>{
+['att-modal','live-modal','summary-modal','settings-modal','pw-modal','logout-modal','spot-modal','hrd-pw-modal','goal-modal','ms-apply-modal','ms-att-modal','ms-sess-modal','ms-group-modal','ms-other-modal','pandora-modal'].forEach(id=>{
     document.getElementById(id).addEventListener('click',e=>{if(e.target.id===id)document.getElementById(id).classList.remove('open');});});
 
 /* 초기화 */
@@ -2987,6 +3030,13 @@ function checkHrdPw(){
     window.addEventListener('resize',onScroll);
     onScroll();
 })();
+
+/* 판도라 안내 팝업 */
+function openGoalInfo(){
+    const img=document.getElementById('goal-mascot');if(img)img.src=MASCOTS.m3;   /* 지게차 */
+    document.getElementById('goal-modal').classList.add('open');
+}
+function closeGoalInfo(){document.getElementById('goal-modal').classList.remove('open');}
 
 initRemote();
 </script>
